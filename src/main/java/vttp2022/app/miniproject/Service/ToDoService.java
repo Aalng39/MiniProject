@@ -28,11 +28,15 @@ public class ToDoService implements ToDoRepo {
     public List<ToDoItem> allUsersTasks(String description){
         ToDoItem items = new ToDoItem();
         items.setDescription(description);
-        items.setToDoTask(items.addTask(description));
+        items.setUserId(items.getUserId());
+
+        for(int i = 0; i < 1 + (ToDoList.toDoList.size()); i++){  
+        items.setTaskCounter(i+1);}
         ToDoList.toDoList.add(items);
 
         return ToDoList.toDoList;
     }
+
     
     @Override
     public int save(final ToDoItem toDoItem) {

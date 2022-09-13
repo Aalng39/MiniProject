@@ -30,7 +30,8 @@ public class ToDoItem implements Serializable{
 
     public List<String> addTask(String description){
         toDoTask.add(description);
-
+        for(int i = 0; i < toDoTask.size(); i++){   
+        System.out.println(toDoTask.get(i));}
         return toDoTask;
     }
 
@@ -40,11 +41,9 @@ public class ToDoItem implements Serializable{
         return taskCounter;
     }
 
-    // public void setTaskCounter(int taskCounter) {
-    //     for(int i = 0; i < ToDoList.getToDoList().size(); i++){
-    //      this.taskCounter = i;
-    //     }
-    // }
+    public void setTaskCounter(int taskCounter) {
+        this.taskCounter = taskCounter;
+    }
     
 
     public String getUserId() {
@@ -84,6 +83,13 @@ public class ToDoItem implements Serializable{
     }
 
     public void setToDoTask(List<String> toDoTask) {
+        addTask(description);
         this.toDoTask = toDoTask;
+    }
+
+    @Override
+    public String toString() {
+        return "ToDoItem [complete=" + complete + ", dateCreated=" + dateCreated + ", description=" + description
+                + ", taskCounter=" + taskCounter + ", toDoTask=" + toDoTask + ", userId=" + userId + "]";
     }
 }

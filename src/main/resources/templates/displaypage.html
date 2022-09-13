@@ -6,28 +6,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main Page</title>
 </head>
-<body th:object="${itemlist}">    
-    <h1>My To-Do List</h1>
-    <div th:each=" toDos, iterStat : ${alluseritems}" th:value="${alluseritems[iterStat.index]}">
-        <!-- <h2>  
-        </h2> -->
-        <p> Task <span th:text="${toDos.taskCounter}"></span> :
+
+<style>
+  table.center {
+  margin-left: auto; 
+  margin-right: auto;  
+}
+ 
+  table, th, td {
+  border: 2px solid rgb(255, 255, 255);
+  border-collapse: collapse;}
+  
+
+  th {
+  background-color: rgb(93, 148, 114); 
+  padding: 15px;}
+
+  td {
+  background-color: rgba(93, 148, 114, 0.233);
+  padding: 10px;}
+</style>
+
+<body style="background-color:#fff5c7;">    
+    <h1 style="text-align:center;">My To-Do List</h1>
+    <!-- <h2>Add New Task</h2>
+    <form
+        action="#"
+        th:action="@{/ToDoList}"
+        th:object="${todolist}"
+        method="post">
+
+        <p>
+            Description: 
+            <input type="text" th:field="*{description}">
+            
+            <span>
+                <input type="submit" value="Add"/>
+            </span>
+        </p>
+           
+    </form> -->
+    <div th:object="${itemlist}">
+      <!-- <div th:each=" toDos, iterStat : ${alluseritems}" th:value="${alluseritems[iterStat.index]}">
+        
+        <p> Task <span th:text="${toDos.taskCounter}"></span> : 
             
             <span>Description: 
             <span th:text="${toDos.description}"></span> </span>
         </p>
-    </div>
-    <table style="width:80%">
+      </div> -->
+      <table style="width:80%" class="center">
         <tr>
-          <th>Task ID</th>
+          <th>Task</th>
           <th>Description</th>
           <th>Task Completed</th>
         </tr>
-        <tr th:each=" toDos, iterStat : ${alluseritems}" th:value="${alluseritems[iterStat.index]}">
-          <td>Task <span th:text="${toDos.taskCounter}"></span></td>
-          <td>Description: 
-            <span th:text="${toDos.description}"></span></td>
+        <tr style="text-align:center;"
+          th:each=" toDos, iterStat : ${alluseritems}" th:value="${alluseritems[iterStat.index]}">
+          <td th:text="${toDos.taskCounter}"></td>
+          <td th:text="${toDos.description}"></td>
           <td>False</td>
       </table>
+    </div>
 </body>
 </html>
