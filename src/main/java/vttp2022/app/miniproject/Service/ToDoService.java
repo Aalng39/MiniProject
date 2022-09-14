@@ -1,25 +1,20 @@
 package vttp2022.app.miniproject.Service;
 
 import vttp2022.app.miniproject.Model.ToDoItem;
-import vttp2022.app.miniproject.Model.ToDoList;
 
 import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+// import org.slf4j.Logger;
+// import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-
-
- 
 @Service
 public class ToDoService implements ToDoRepo {
-    private static final Logger logger = LoggerFactory.getLogger(ToDoService.class);
+    // private static final Logger logger = LoggerFactory.getLogger(ToDoService.class);
     
     @Autowired
-    RedisTemplate<String, ToDoItem> redisTemplate;
+    RedisTemplate<String, Object> redisTemplate;
 
     // @Override
     // public void save(ToDoItem toDoItem) {
@@ -30,16 +25,17 @@ public class ToDoService implements ToDoRepo {
         items.setDescription(description);
         items.setUserId(items.getUserId());
 
-        for(int i = 0; i < 1 + (ToDoList.toDoList.size()); i++){  
+        for(int i = 0; i < 1 + (items.getToDoList().size()); i++){  
         items.setTaskCounter(i+1);}
-        ToDoList.toDoList.add(items);
+        
+        items.getToDoList().add(items);
 
-        return ToDoList.toDoList;
+        return items.getToDoList();
     }
 
-    
+
     @Override
-    public int save(final ToDoItem toDoItem) {
+    public void save(final ToDoItem toDoItem) {
         String username = toDoItem.getUserId().replace(" ", "");
         if(redisTemplate.hasKey(toDoItem.getUserId())){
 
@@ -49,21 +45,21 @@ public class ToDoService implements ToDoRepo {
             redisTemplate.opsForValue().setIfAbsent(username, toDoItem);
         }
             
-        ToDoItem result = (ToDoItem) redisTemplate.opsForValue().get(username);
+        // ToDoItem result = (ToDoItem) redisTemplate.opsForValue().get(username);
 
-        boolean saved = (result != null);
-        logger.info("Save mastermind > " + String.valueOf(saved));
+        // boolean saved = (result != null);
+        // logger.info("Save mastermind > " + String.valueOf(saved));
 
-        if (result != null)
-            return 1;
+        // if (result != null)
+        //     return 1;
 
-        return 0;
+        // return 0;
     }
 
     @Override
-    public ToDoItem findById(String historyId) {
-        // TODO Auto-generated method stub
-        return null;
+    public ToDoItem loginWithId(String userId) {
+        ToDoItem items = (ToDoItem) redisTemplate.opsForValue().get(userId);
+        return items;
     }
 
 }

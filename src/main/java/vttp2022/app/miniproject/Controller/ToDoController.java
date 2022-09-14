@@ -8,9 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import vttp2022.app.miniproject.Model.ToDoItem;
-import vttp2022.app.miniproject.Model.ToDoList;
 import vttp2022.app.miniproject.Service.ToDoService;
 
 @Controller
@@ -32,25 +32,33 @@ public class ToDoController {
         }
     
     @PostMapping("/ToDoList")
-    public String showToDoList(@ModelAttribute ToDoItem toDoItem, ToDoList toDoList, Model model) {
-        
+    public String showToDoList(@ModelAttribute ToDoItem toDoItem, Model model) {
         ToDoItem item = new ToDoItem(
-            toDoItem.getTaskCounter(),
-            toDoItem.getUserId(),
-            toDoItem.getDescription(),
-            toDoItem.getToDoTask()
+            // toDoItem.getTaskCounter(),
+            // toDoItem.getUserId(),
+            // toDoItem.getDescription(),
+            // ToDoItem.getToDoList()
             ); 
-
-        service.save(item);
-
         List<ToDoItem> allItems = service.allUsersTasks(toDoItem.getDescription());
-        ToDoList.setToDoList(allItems);
+        item.setToDoList(allItems);
+
+      
+
+        item.setUserId(toDoItem.getUserId());
+        service.save(item);
 
         model.addAttribute("itemlist", item);
         model.addAttribute("alluseritems", allItems);
 
-       
         return "displaypage";
     }
 
+    @PostMapping("/List")
+    public String returnResultPage(@RequestParam String userId, 
+                                    Model model){
+        ToDoItem toDoItem = service.loginWithId(userId);
+        List<ToDoItem> allItems = toDoItem.getToDoList();
+        model.addAttribute("alluseritems", allItems);
+        return "displaypage";
+    }
 }

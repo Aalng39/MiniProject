@@ -4,8 +4,8 @@ import vttp2022.app.miniproject.Model.ToDoItem;
 
 public interface ToDoRepo {
     
-        public int save(final ToDoItem toDoItem);
+        public void save(final ToDoItem toDoItem);
     
-        public ToDoItem findById(String historyId);
+        public ToDoItem loginWithId(String userId);
 
 }

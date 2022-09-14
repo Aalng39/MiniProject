@@ -1,4 +1,9 @@
-body {
+h1 {
+  padding-top: 50px;
+  font-weight: bold;
+  }
+
+  body {
     background-color: #fff5c7;
     /* background: linear-gradient(to right, #f2e5a9, #fcf9e9); */
   }
@@ -8,6 +13,9 @@ body {
     letter-spacing: 0.05rem;
     padding: 0.75rem 1rem;
     background-color: rgb(93, 148, 114);
-    border-color: rgb(93, 148, 114);
+    border:none;
   }
-  
+
+  .btn-login:hover {
+      background-color:rgb(132, 210, 162) !important;
+  }

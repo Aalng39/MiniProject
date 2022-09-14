@@ -11,12 +11,10 @@
     rel="stylesheet" 
     integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" 
     crossorigin="anonymous">
-    <link th:href="@{C:\Users\andyn\Desktop\VISA\SSF\miniproject\src\main\resources\static\ccs\userstyle.css}"
-      href="C:\Users\andyn\Desktop\VISA\SSF\miniproject\src\main\resources\static\css\userstyle.css"
-      rel="stylesheet" type="text/css">
+    <link th:href="@{/css/userstyle.css}" rel="stylesheet" type="text/css">
 </head>
 
-<style>
+<!-- <style>
   h1 {
   padding-top: 50px;
   font-weight: bold;
@@ -40,7 +38,7 @@
   }
 
 
-</style>
+</style> -->
 
 <body>
   <h1 style="text-align:center;">My ToDo App</h1>
@@ -52,7 +50,7 @@
               <h5 class="card-title text-center mb-5 fw-light fs-5">Sign In</h5>
               <form 
                 action="#"
-                th:action="@{/ToDoList}"
+                th:action="@{/List}"
                 th:object="${todolist}"
                 method="post">
 

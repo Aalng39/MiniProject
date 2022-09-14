@@ -11,8 +11,10 @@ public class ToDoItem implements Serializable{
     private String description;
     private boolean complete;
     private LocalDateTime dateCreated;
-    private List<String> toDoTask = new LinkedList<>(); 
+    private List<ToDoItem> toDoList = new LinkedList<>();
     
+    
+
     public ToDoItem() {
     }
 
@@ -20,20 +22,20 @@ public class ToDoItem implements Serializable{
     //     this.description = description;
     // }
 
-    public ToDoItem(int taskCounter, String userId, String description, List<String> toDoTask){
+    public ToDoItem(int taskCounter, String userId, String description, List<ToDoItem> toDoList){
         this.taskCounter = taskCounter;
         this.userId = userId;
         this.description = description;
-        this.toDoTask = toDoTask;
+        this.toDoList = toDoList;
         // this.dateCreated = LocalDateTime.now();
     }
 
-    public List<String> addTask(String description){
-        toDoTask.add(description);
-        for(int i = 0; i < toDoTask.size(); i++){   
-        System.out.println(toDoTask.get(i));}
-        return toDoTask;
-    }
+    // public List<String> addTask(String description){
+    //     toDoTask.add(description);
+    //     for(int i = 0; i < toDoTask.size(); i++){   
+    //     System.out.println(toDoTask.get(i));}
+    //     return toDoTask;
+    // }
 
     //GETTERS SETTERS
 
@@ -78,18 +80,12 @@ public class ToDoItem implements Serializable{
         this.dateCreated = dateCreated;
     }
     
-    public List<String> getToDoTask() {
-        return toDoTask;
+    public void setToDoList(List<ToDoItem> toDoList) {
+        this.toDoList = toDoList;
     }
 
-    public void setToDoTask(List<String> toDoTask) {
-        addTask(description);
-        this.toDoTask = toDoTask;
+    public List<ToDoItem> getToDoList() {
+        return toDoList;
     }
-
-    @Override
-    public String toString() {
-        return "ToDoItem [complete=" + complete + ", dateCreated=" + dateCreated + ", description=" + description
-                + ", taskCounter=" + taskCounter + ", toDoTask=" + toDoTask + ", userId=" + userId + "]";
-    }
+    
 }

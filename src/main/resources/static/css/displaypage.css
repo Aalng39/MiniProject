@@ -1,0 +1,21 @@
+
+body {
+    background-color: #fff5c7;
+    /* background: linear-gradient(to right, #f2e5a9, #fcf9e9); */}
+    
+table.center {
+    margin-left: auto; 
+    margin-right: auto;}
+   
+table, th, td {
+    border: 2px solid rgb(255, 255, 255);
+    border-collapse: collapse;}
+        
+    
+th {
+    background-color: rgb(93, 148, 114); 
+    padding: 15px;}
+    
+td {
+    background-color: rgba(93, 148, 114, 0.233);
+    padding: 10px;}
