@@ -20,17 +20,28 @@ public class ToDoService implements ToDoRepo {
     // public void save(ToDoItem toDoItem) {
     //     redisTemplate.opsForValue().set(toDoItem.getId(), toDoItem);
     
-    public List<ToDoItem> allUsersTasks(String description){
+    public List<ToDoItem> allUsersTasks(String userId, String description){
         ToDoItem items = new ToDoItem();
         items.setDescription(description);
-        items.setUserId(items.getUserId());
-
+        items.setUserId(userId);
         for(int i = 0; i < 1 + (items.getToDoList().size()); i++){  
         items.setTaskCounter(i+1);}
-        
-        items.getToDoList().add(items);
+    
+        if(redisTemplate.hasKey(userId)){
 
-        return items.getToDoList();
+            ToDoItem toDo = (ToDoItem) redisTemplate.opsForValue().get(userId);
+            for(int i = 0; i < 1 + (toDo.getToDoList().size()); i++){  
+                items.setTaskCounter(i+1);}
+            toDo.getToDoList().add(items);
+
+            return toDo.getToDoList();   
+
+        }else{
+
+            items.getToDoList().add(items);
+            return items.getToDoList();
+       
+        }        
     }
 
 
@@ -38,6 +49,9 @@ public class ToDoService implements ToDoRepo {
     public void save(final ToDoItem toDoItem) {
         String username = toDoItem.getUserId().replace(" ", "");
         if(redisTemplate.hasKey(toDoItem.getUserId())){
+
+            // ToDoItem items = (ToDoItem) redisTemplate.opsForValue().get(toDoItem.getUserId());
+            // items.getToDoList().add(toDoItem);
 
            redisTemplate.opsForValue().setIfPresent(username, toDoItem);
             

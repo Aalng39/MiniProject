@@ -13,7 +13,7 @@
     <!-- <h2>Add New Task</h2>
     <form
         action="#"
-        th:action="@{/ToDoList}"
+        th:action="@{/List}"
         th:object="${todolist}"
         method="post">
 
@@ -41,12 +41,14 @@
           <th>Task</th>
           <th>Description</th>
           <th>Task Completed</th>
+          <th>User</th>
         </tr>
         <tr style="text-align:center;"
           th:each=" toDos, iterStat : ${alluseritems}" th:value="${alluseritems[iterStat.index]}">
           <td th:text="${toDos.taskCounter}"></td>
           <td th:text="${toDos.description}"></td>
           <td>False</td>
+          <td th:text="${toDos.userId}"></td>
       </table>
     </div>
 </body>

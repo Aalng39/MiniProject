@@ -33,21 +33,18 @@ public class ToDoController {
     
     @PostMapping("/ToDoList")
     public String showToDoList(@ModelAttribute ToDoItem toDoItem, Model model) {
-        ToDoItem item = new ToDoItem(
-            // toDoItem.getTaskCounter(),
-            // toDoItem.getUserId(),
-            // toDoItem.getDescription(),
-            // ToDoItem.getToDoList()
-            ); 
-        List<ToDoItem> allItems = service.allUsersTasks(toDoItem.getDescription());
-        item.setToDoList(allItems);
 
-      
+        List<ToDoItem> allItems = service.allUsersTasks(toDoItem.getUserId(), toDoItem.getDescription());
+                toDoItem.setToDoList(allItems);
+                toDoItem.getTaskCounter();
+                toDoItem.getUserId();
+                toDoItem.getDescription();
+                toDoItem.getToDoList();
+            
 
-        item.setUserId(toDoItem.getUserId());
-        service.save(item);
+        service.save(toDoItem);
 
-        model.addAttribute("itemlist", item);
+        model.addAttribute("itemlist", toDoItem);
         model.addAttribute("alluseritems", allItems);
 
         return "displaypage";
