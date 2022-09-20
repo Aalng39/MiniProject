@@ -1,6 +1,8 @@
 
 body {
     background-color: #fff5c7;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    letter-spacing: 1px;
     /* background: linear-gradient(to right, #f2e5a9, #fcf9e9); */}
     
 table.center {
@@ -8,14 +10,26 @@ table.center {
     margin-right: auto;}
    
 table, th, td {
-    border: 2px solid rgb(255, 255, 255);
-    border-collapse: collapse;}
-        
+    border: none
+    /* border-collapse: collapse; */
+}   
     
 th {
+    color: rgb(255, 255, 255);
+    font-size: 20px;
     background-color: rgb(93, 148, 114); 
     padding: 15px;}
     
 td {
     background-color: rgba(93, 148, 114, 0.233);
     padding: 10px;}
+
+button.Add {
+    color:rgb(255, 255, 255); 
+    font-size: 12px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: rgb(93, 148, 114);
+    border:none;
+    border-radius: 8px;
+    padding: 4px 20px;
+}

@@ -31,16 +31,34 @@ public class ToDoController {
     RedisTemplate<String, Object> redisTemplate;
 
     @GetMapping("/")
-        public String login(Model model) {
+    public String login(Model model) {
         model.addAttribute("todolist", new ToDoItem());
         return "userpage";
-        }
+    }
 
-    @GetMapping("/Add")
-        public String addTaskToList(Model model) {
-        model.addAttribute("todolist", new ToDoItem());
-        return "addpage";
-        }
+    @GetMapping("/List")
+    public String loginUsingUsername(@RequestParam String userId, Model model){
+    
+        CurrentUser.setCurrentUser(userId);
+    
+        ToDoItem userDetails = new ToDoItem();
+        userDetails.setUserId(userId);
+        model.addAttribute("todolist", userDetails);
+            
+        if(redisTemplate.hasKey(userId)){
+    
+        ToDoItem userItem = service.loginWithId(userId);
+        List<ToDoItem> allItems = userItem.getToDoList();                 
+        model.addAttribute("alluseritems", allItems);
+        
+        return "displaypage";
+                  
+        }else{
+     
+        return "newuserpage";           
+        }                   
+    }
+
     
     @PostMapping("/ToDoList")
     public String showToDoList(@ModelAttribute ToDoItem toDoItem, Model model) {
@@ -63,39 +81,14 @@ public class ToDoController {
         return "displaypage";
     }
 
-    @GetMapping("/List")
-    public String loginUsingUsername(@RequestParam String userId, Model model){
 
-        CurrentUser.setCurrentUser(userId);
-
-        ToDoItem userDetails = new ToDoItem();
-        userDetails.setUserId(userId);
-        model.addAttribute("todolist", userDetails);
-        
-        if(redisTemplate.hasKey(userId)){
-
-        ToDoItem userItem = service.loginWithId(userId);
-                List<ToDoItem> allItems = userItem.getToDoList();
-                
-                model.addAttribute("alluseritems", allItems);
-                return "displaypage";
-              
-
-        }else{
- 
-            return "homepage";
-       
-        }        
-        
-    }
-
-    // @PostMapping("/List")
+    // @PostMapping("/Completed")
     // public String deleteTasks(@RequestParam String userId, 
     //                                 Model model){                                
         
     //     ToDoItem toDoItem = service.loginWithId(userId);
     //     List<ToDoItem> allItems = toDoItem.getToDoList();
     //     model.addAttribute("alluseritems", allItems);
-    //     return "displaypage";
+    //     return "completedpage";
     // }
 }

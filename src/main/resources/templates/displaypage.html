@@ -22,7 +22,7 @@
             <input type="text" th:field="*{description}">
             
             <span>
-                <input type="submit" value="Add"/>
+              <button class="Add" type="submit">Add</button>
             </span>
         </p>
            
@@ -47,17 +47,24 @@
         <tr>
           <th>Task</th>
           <th>Description</th>
-          <th>Task Completed</th>
           <th>Date Created</th>
+          <!-- <th>Task Completed?</th> -->
           
         </tr>
         <tr style="text-align:center;"
           th:each=" toDos, iterStat : ${alluseritems}" th:value="${alluseritems[iterStat.index]}">
+          <!-- <form
+            action="#"
+            th:action="@{/List}"
+            th:object="${todolist}"
+            method="post"></form> -->
+
           <td th:text="${toDos.taskCounter}"></td>
           <td th:text="${toDos.description}"></td>
-          <td>False</td>
           <td th:text="${toDos.dateCreated}"></td>
-          
+          <!-- <td><input type="submit" value="Yes"></td> -->
+
+        </tr>
       </table>
 
       <!-- </form> -->
