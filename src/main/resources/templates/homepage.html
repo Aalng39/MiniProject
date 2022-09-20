@@ -8,11 +8,13 @@
     <title>Main Page</title>
 </head>
 <body class="text-center">
-  <h1 style="text-align:center;">My To-Do List</h1>   
+  <h1 style="text-align:center;">Welcome New User</h1>   
     <h2> Add a new Task </h2>
         <form
         action="#"
-        th:object="${todolist}">
+        th:action="@{/ToDoList}"
+        th:object="${todolist}"
+        method="post">
         <p>
             Description: 
             <input type="text" th:field="*{description}">

@@ -2,6 +2,9 @@ package vttp2022.app.miniproject.Service;
 
 import vttp2022.app.miniproject.Model.ToDoItem;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 // import org.slf4j.Logger;
 // import org.slf4j.LoggerFactory;
 
@@ -17,14 +20,14 @@ public class ToDoService implements ToDoRepo {
     @Autowired
     RedisTemplate<String, Object> redisTemplate;
 
-    // @Override
-    // public void save(ToDoItem toDoItem) {
-    //     redisTemplate.opsForValue().set(toDoItem.getId(), toDoItem);
-    
-    public List<ToDoItem> allUsersTasks(String userId, String description){
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
+    String currentDateTime = LocalDateTime.now().format(formatter);
+
+    public List<ToDoItem> createListOfTask(String userId, String description){
         ToDoItem items = new ToDoItem();
         items.setDescription(description);
         items.setUserId(userId);
+        items.setDateCreated(currentDateTime);
         for(int i = 0; i < 1 + (items.getToDoList().size()); i++){  
         items.setTaskCounter(i+1);}
     
@@ -72,7 +75,7 @@ public class ToDoService implements ToDoRepo {
     }
 
     @Override
-    public ToDoItem loginWithId(String userId) {
+    public ToDoItem loginWithId(final String userId) {
         ToDoItem items = (ToDoItem) redisTemplate.opsForValue().get(userId);
         return items;
     }

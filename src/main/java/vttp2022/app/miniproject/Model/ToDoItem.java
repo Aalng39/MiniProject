@@ -1,7 +1,6 @@
 package vttp2022.app.miniproject.Model;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,17 +9,13 @@ public class ToDoItem implements Serializable{
     private String userId;
     private String description;
     private boolean complete;
-    private LocalDateTime dateCreated;
+    private String dateCreated;
     private List<ToDoItem> toDoList = new LinkedList<>();
     
-    
+    //Constructors
 
     public ToDoItem() {
     }
-
-    // public ToDoItem(String description) {
-    //     this.description = description;
-    // }
 
     public ToDoItem(int taskCounter, String userId, String description, List<ToDoItem> toDoList){
         this.taskCounter = taskCounter;
@@ -72,14 +67,14 @@ public class ToDoItem implements Serializable{
         this.complete = complete;
     }
 
-    public LocalDateTime getDateCreated() {
+    public String getDateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreated(LocalDateTime dateCreated) {
+    public void setDateCreated(String dateCreated) {
         this.dateCreated = dateCreated;
     }
-    
+
     public void setToDoList(List<ToDoItem> toDoList) {
         this.toDoList = toDoList;
     }

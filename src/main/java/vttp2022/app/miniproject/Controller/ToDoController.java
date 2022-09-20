@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +26,9 @@ public class ToDoController {
 
     @Autowired
     ToDoService service;
+    
+    @Autowired
+    RedisTemplate<String, Object> redisTemplate;
 
     @GetMapping("/")
         public String login(Model model) {
@@ -43,13 +47,12 @@ public class ToDoController {
         logger.info(CurrentUser.getCurrentUser());
         toDoItem.setUserId(CurrentUser.getCurrentUser());
 
-        List<ToDoItem> allItems = service.allUsersTasks(toDoItem.getUserId(), toDoItem.getDescription());
+        List<ToDoItem> allItems = service.createListOfTask(toDoItem.getUserId(), toDoItem.getDescription());
                 toDoItem.setToDoList(allItems);
                 toDoItem.getTaskCounter();
                 toDoItem.getUserId();
                 toDoItem.getDescription();
-                toDoItem.getToDoList();
-            
+                toDoItem.getToDoList(); 
 
         service.save(toDoItem);
 
@@ -69,11 +72,21 @@ public class ToDoController {
         userDetails.setUserId(userId);
         model.addAttribute("todolist", userDetails);
         
+        if(redisTemplate.hasKey(userId)){
+
         ToDoItem userItem = service.loginWithId(userId);
-        List<ToDoItem> allItems = userItem.getToDoList();
+                List<ToDoItem> allItems = userItem.getToDoList();
+                
+                model.addAttribute("alluseritems", allItems);
+                return "displaypage";
+              
+
+        }else{
+ 
+            return "homepage";
+       
+        }        
         
-        model.addAttribute("alluseritems", allItems);
-        return "displaypage";
     }
 
     // @PostMapping("/List")

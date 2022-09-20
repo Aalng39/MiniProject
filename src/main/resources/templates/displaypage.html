@@ -48,14 +48,16 @@
           <th>Task</th>
           <th>Description</th>
           <th>Task Completed</th>
-          <th>User</th>
+          <th>Date Created</th>
+          
         </tr>
         <tr style="text-align:center;"
           th:each=" toDos, iterStat : ${alluseritems}" th:value="${alluseritems[iterStat.index]}">
           <td th:text="${toDos.taskCounter}"></td>
           <td th:text="${toDos.description}"></td>
           <td>False</td>
-          <td th:text="${toDos.userId}"></td>
+          <td th:text="${toDos.dateCreated}"></td>
+          
       </table>
 
       <!-- </form> -->
