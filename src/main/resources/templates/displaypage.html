@@ -9,11 +9,11 @@
 </head>
 
 <body>    
-    <h1 style="text-align:center;">My To-Do List</h1>
-    <!-- <h2>Add New Task</h2>
-    <form
+    <h1 style="text-align:center;"><span th:text = ${todolist.userId}></span>'s To-Do List</h1>
+    <h2>Add New Task</h2>
+      <form
         action="#"
-        th:action="@{/List}"
+        th:action="@{/ToDoList}"
         th:object="${todolist}"
         method="post">
 
@@ -26,7 +26,8 @@
             </span>
         </p>
            
-    </form> -->
+      </form>  
+
     <div th:object="${itemlist}">
       <!-- <div th:each=" toDos, iterStat : ${alluseritems}" th:value="${alluseritems[iterStat.index]}">
         
@@ -36,6 +37,12 @@
             <span th:text="${toDos.description}"></span> </span>
         </p>
       </div> -->
+      <!-- <form
+        action="#"
+        th:action="@{/List}"
+        th:object="${todolist}"
+        method="post"> -->
+
       <table style="width:80%" class="center">
         <tr>
           <th>Task</th>
@@ -50,6 +57,8 @@
           <td>False</td>
           <td th:text="${toDos.userId}"></td>
       </table>
+
+      <!-- </form> -->
     </div>
 </body>
 </html>

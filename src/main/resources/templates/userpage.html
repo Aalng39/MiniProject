@@ -52,7 +52,7 @@
                 action="#"
                 th:action="@{/List}"
                 th:object="${todolist}"
-                method="post">
+                method="get">
 
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="floatingInput" th:field="*{userId}">
