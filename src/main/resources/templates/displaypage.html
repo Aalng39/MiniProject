@@ -8,7 +8,8 @@
     <title>Main Page</title>
 </head>
 
-<body>    
+<body>
+    <a th:href="Login"><button style="float: right;" class="Logout">Logout</button></a>
     <h1 style="text-align:center;"><span th:text = ${todolist.userId}></span>'s To-Do List</h1>
     <h2>Add New Task</h2>
       <form

@@ -30,7 +30,7 @@ public class ToDoController {
     @Autowired
     RedisTemplate<String, Object> redisTemplate;
 
-    @GetMapping("/")
+    @GetMapping("/Login")
     public String login(Model model) {
         model.addAttribute("todolist", new ToDoItem());
         return "userpage";

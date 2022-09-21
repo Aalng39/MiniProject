@@ -33,3 +33,14 @@ button.Add {
     border-radius: 8px;
     padding: 4px 20px;
 }
+
+button.Logout {
+    color:rgb(255, 255, 255);
+    font-size: 16px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: rgb(93, 148, 114);
+    background-color: rgb(93, 148, 114);
+    border:none;
+    border-radius: 8px;
+    padding: 4px 20px;
+}
