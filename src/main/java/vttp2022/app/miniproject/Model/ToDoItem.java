@@ -1,32 +1,29 @@
 package vttp2022.app.miniproject.Model;
 
 import java.io.Serializable;
-import java.util.LinkedList;
-import java.util.List;
 
 public class ToDoItem implements Serializable{
+    private int index;
     private String userId;
     private String description;
     private String dateCreated;
-    private List<ToDoItem> toDoList = new LinkedList<>();
-    private ToDoItem itemToDelete;
+    
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
     //Constructors
-
-    public ToDoItem getItemToDelete() {
-        return itemToDelete;
-    }
-
-    public void setItemToDelete(ToDoItem itemToDelete) {
-        this.itemToDelete = itemToDelete;
-    }
 
     public ToDoItem() {
     }
 
-    public ToDoItem(String userId, String description, List<ToDoItem> toDoList){
+    public ToDoItem(String userId, String description, String dateCreated){
         this.userId = userId;
         this.description = description;
-        this.toDoList = toDoList;
+        this.dateCreated = dateCreated;       
     }
 
     // public List<String> addTask(String description){
@@ -61,13 +58,5 @@ public class ToDoItem implements Serializable{
     public void setDateCreated(String dateCreated) {
         this.dateCreated = dateCreated;
     }
-
-    public void setToDoList(List<ToDoItem> toDoList) {
-        this.toDoList = toDoList;
-    }
-
-    public List<ToDoItem> getToDoList() {
-        return toDoList;
-    }
-    
+  
 }

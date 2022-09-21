@@ -28,7 +28,7 @@
         </p>
            
       </form>  
-
+      
     <div th:object="${itemlist}">
       <table style="width:80%" class="center">
         <tr>
@@ -40,21 +40,27 @@
         </tr>
         <tr style="text-align:center;"
           th:each=" toDos, iterStat : ${alluseritems}" th:value="${alluseritems[iterStat.index]}">
-          <!-- <form
-            action="#"
-            th:action="@{/Remove}"
-            th:object="${todolist}"
-            method="post"> -->
           
+          <form
+            action="#"
+            th:action="@{/NewPage}"
+            th:object="${todolist}"
+            method="post">
+
           <td th:text="${iterStat.index} + 1"></td>
           <td th:text="${toDos.description}"></td>
           <td th:text="${toDos.dateCreated}"></td>
-          <td><input type="submit" value="Yes"></td>
-          <!-- <td><input th:value="${alluseritems[iterStat.index]}" type="submit" name="itemToDelete"></td> -->
-          <!-- </form> -->
+          <!-- <td><input type="submit" value="Yes"></td> -->
+          <td>
+            <input type = "hidden" th:value="${toDos.description}" name="description">
+            <input type = "hidden" th:value="${toDos.dateCreated}" name="dateCreated">
+            <input type = "hidden" th:value="${iterStat.index}" name="index">
+            <button class="Done" type="submit">Yes</button>
+          </td>
+          </form>
         </tr>
       </table>
-
+      
     
     </div>
 </body>

@@ -13,17 +13,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 // import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import vttp2022.app.miniproject.Model.CurrentUser;
 import vttp2022.app.miniproject.Model.ToDoItem;
+import vttp2022.app.miniproject.Model.ToDoList;
 import vttp2022.app.miniproject.Service.ToDoService;
 
 @Controller
 public class ToDoController {
     private static final Logger logger = LoggerFactory.getLogger(ToDoController.class);
     
-
     @Autowired
     ToDoService service;
     
@@ -37,18 +36,17 @@ public class ToDoController {
     }
 
     @GetMapping("/List")
-    public String loginUsingUsername(@RequestParam String userId, Model model){
+    public String loginUsingUsername(@ModelAttribute ToDoItem toDoItem, Model model){
     
-        CurrentUser.setCurrentUser(userId);
-    
+        CurrentUser.setCurrentUser(toDoItem.getUserId());
         ToDoItem userDetails = new ToDoItem();
-        userDetails.setUserId(userId);
+        userDetails.setUserId(CurrentUser.getCurrentUser());
         model.addAttribute("todolist", userDetails);
             
-        if(redisTemplate.hasKey(userId)){
+        if(redisTemplate.hasKey(userDetails.getUserId())){
     
-        ToDoItem userItem = service.loginWithId(userId);
-        List<ToDoItem> allItems = userItem.getToDoList();                 
+        ToDoList toDoList = service.loginWithId(userDetails.getUserId());
+        List<ToDoItem> allItems = toDoList.getToDoList();                 
         model.addAttribute("alluseritems", allItems);
         
         return "displaypage";
@@ -58,41 +56,47 @@ public class ToDoController {
         return "newuserpage";           
         }                   
     }
-
-    
+  
     @PostMapping("/ToDoList")
     public String showToDoList(@ModelAttribute ToDoItem toDoItem, Model model) {
-        logger.info(CurrentUser.getCurrentUser());
+
+        
         toDoItem.setUserId(CurrentUser.getCurrentUser());
 
         List<ToDoItem> allItems = service.createListOfTask(toDoItem.getUserId(), toDoItem.getDescription());
-                toDoItem.setToDoList(allItems);
-                toDoItem.getUserId();
-                toDoItem.getDescription();
-                toDoItem.getToDoList(); 
+        ToDoList toDoList = new ToDoList();
+        toDoList.setToDoList(allItems);               
 
-        service.save(toDoItem);
+        service.save(toDoList);
 
         model.addAttribute("todolist", toDoItem);
-        model.addAttribute("itemlist", toDoItem);
+        model.addAttribute("itemlist", toDoList);
         model.addAttribute("alluseritems", allItems);
 
         return "displaypage";
     }
 
-    // @PostMapping("/Remove")
-    // public String deleteTasks(@ModelAttribute ToDoItem toDoItem, 
-    //                                 Model model){                                
-    //     toDoItem.setUserId(CurrentUser.getCurrentUser());
-    //     ToDoItem userItem = service.loginWithId(toDoItem.getUserId());
-    //     List<ToDoItem> allItems = userItem.getToDoList();
-    //     allItems.remove(toDoItem.getItemToDelete());
-    //     toDoItem.setToDoList(allItems);
-    //     service.save(toDoItem);
+    @PostMapping("/NewPage")
+    public String deleteTasks(@ModelAttribute ToDoItem toDoItem, Model model){
 
-    //     model.addAttribute("todolist", toDoItem);
-    //     model.addAttribute("itemlist", toDoItem);
-    //     model.addAttribute("alluseritems", allItems);
-    //     return "displaypage";
-    // }
+        toDoItem.setUserId(CurrentUser.getCurrentUser());
+
+        logger.info(Integer.toString(toDoItem.getIndex()));
+
+        ToDoList userItem = service.loginWithId(toDoItem.getUserId());
+        List<ToDoItem> allItems = userItem.getToDoList();
+        
+        allItems.remove(toDoItem.getIndex());
+
+        ToDoList toDoList = new ToDoList();
+        toDoList.setToDoList(allItems); 
+        
+        service.save(toDoList);
+
+        model.addAttribute("todolist", toDoItem);
+        model.addAttribute("itemlist", toDoList);
+        model.addAttribute("alluseritems", allItems);
+
+        return "displaypage";
+    }
 }
