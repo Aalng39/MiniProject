@@ -67,7 +67,6 @@ public class ToDoController {
 
         List<ToDoItem> allItems = service.createListOfTask(toDoItem.getUserId(), toDoItem.getDescription());
                 toDoItem.setToDoList(allItems);
-                toDoItem.getTaskCounter();
                 toDoItem.getUserId();
                 toDoItem.getDescription();
                 toDoItem.getToDoList(); 
@@ -81,14 +80,19 @@ public class ToDoController {
         return "displaypage";
     }
 
-
-    // @PostMapping("/Completed")
-    // public String deleteTasks(@RequestParam String userId, 
+    // @PostMapping("/Remove")
+    // public String deleteTasks(@ModelAttribute ToDoItem toDoItem, 
     //                                 Model model){                                
-        
-    //     ToDoItem toDoItem = service.loginWithId(userId);
-    //     List<ToDoItem> allItems = toDoItem.getToDoList();
+    //     toDoItem.setUserId(CurrentUser.getCurrentUser());
+    //     ToDoItem userItem = service.loginWithId(toDoItem.getUserId());
+    //     List<ToDoItem> allItems = userItem.getToDoList();
+    //     allItems.remove(toDoItem.getItemToDelete());
+    //     toDoItem.setToDoList(allItems);
+    //     service.save(toDoItem);
+
+    //     model.addAttribute("todolist", toDoItem);
+    //     model.addAttribute("itemlist", toDoItem);
     //     model.addAttribute("alluseritems", allItems);
-    //     return "completedpage";
+    //     return "displaypage";
     // }
 }

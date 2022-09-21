@@ -5,24 +5,28 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ToDoItem implements Serializable{
-    private int taskCounter;
     private String userId;
     private String description;
-    private boolean complete;
     private String dateCreated;
     private List<ToDoItem> toDoList = new LinkedList<>();
-    
+    private ToDoItem itemToDelete;
     //Constructors
+
+    public ToDoItem getItemToDelete() {
+        return itemToDelete;
+    }
+
+    public void setItemToDelete(ToDoItem itemToDelete) {
+        this.itemToDelete = itemToDelete;
+    }
 
     public ToDoItem() {
     }
 
-    public ToDoItem(int taskCounter, String userId, String description, List<ToDoItem> toDoList){
-        this.taskCounter = taskCounter;
+    public ToDoItem(String userId, String description, List<ToDoItem> toDoList){
         this.userId = userId;
         this.description = description;
         this.toDoList = toDoList;
-        // this.dateCreated = LocalDateTime.now();
     }
 
     // public List<String> addTask(String description){
@@ -33,15 +37,6 @@ public class ToDoItem implements Serializable{
     // }
 
     //GETTERS SETTERS
-
-    public int getTaskCounter() {
-        return taskCounter;
-    }
-
-    public void setTaskCounter(int taskCounter) {
-        this.taskCounter = taskCounter;
-    }
-    
 
     public String getUserId() {
         return userId;
@@ -57,14 +52,6 @@ public class ToDoItem implements Serializable{
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public boolean isComplete() {
-        return complete;
-    }
-
-    public void setComplete(boolean complete) {
-        this.complete = complete;
     }
 
     public String getDateCreated() {

@@ -32,6 +32,7 @@ button.Add {
     border:none;
     border-radius: 8px;
     padding: 4px 20px;
+    cursor: pointer;
 }
 
 button.Logout {
@@ -43,4 +44,13 @@ button.Logout {
     border:none;
     border-radius: 8px;
     padding: 4px 20px;
+    cursor: pointer;
+}
+
+button.Add:hover {
+    background-color:rgb(132, 210, 162);
+}
+
+button.Logout:hover {
+    background-color:rgb(132, 210, 162);
 }

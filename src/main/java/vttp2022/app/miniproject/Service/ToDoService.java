@@ -25,17 +25,13 @@ public class ToDoService implements ToDoRepo {
 
     public List<ToDoItem> createListOfTask(String userId, String description){
         ToDoItem items = new ToDoItem();
-        items.setDescription(description);
         items.setUserId(userId);
+        items.setDescription(description);
         items.setDateCreated(currentDateTime);
-        for(int i = 0; i < 1 + (items.getToDoList().size()); i++){  
-        items.setTaskCounter(i+1);}
     
         if(redisTemplate.hasKey(userId)){
 
             ToDoItem toDo = (ToDoItem) redisTemplate.opsForValue().get(userId);
-            for(int i = 0; i < 1 + (toDo.getToDoList().size()); i++){  
-                items.setTaskCounter(i+1);}
             toDo.getToDoList().add(items);
 
             return toDo.getToDoList();   
