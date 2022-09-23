@@ -4,9 +4,29 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/css/displaypage.css}" rel="stylesheet" type="text/css">
     <title>Add Page</title>
 </head>
 <body>
-    <h1>You Completed A Task!</h1>
+    <h1>Completed Task</h1>
+    <div th:object="${itemlist}">
+        <table style="width:80%" class="center">
+          <tr>
+            <th>Task</th>
+            <th>Description</th>
+            <th>Date Completed</th>
+            
+          </tr>
+          <tr style="text-align:center;"
+            th:each=" toDos, iterStat : ${alluseritems}" th:value="${alluseritems[iterStat.index]}">
+  
+            <td th:text="${iterStat.index} + 1"></td>
+            <td th:text="${toDos.description}"></td>
+            <td th:text="${toDos.dateCreated}"></td>      
+          </tr>
+        </table>
+        
+      
+      </div>
 </body>
 </html>

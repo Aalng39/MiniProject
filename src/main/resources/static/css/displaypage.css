@@ -35,6 +35,27 @@ button.Add {
     cursor: pointer;
 }
 
+button.Add:hover {
+    background-color:rgb(132, 210, 162);
+}
+
+button.Done {
+    color:rgb(255, 255, 255); 
+    font-size: 12px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: rgb(93, 148, 114);
+    border:none;
+    border-radius: 8px;
+    padding: 4px 20px;
+    cursor: pointer;
+}
+button.Done:hover {
+    background-color:rgb(132, 210, 162);
+}
+h1.title{
+    text-align:center;
+}
+
 button.Logout {
     color:rgb(255, 255, 255);
     font-size: 16px;
@@ -45,12 +66,25 @@ button.Logout {
     border-radius: 8px;
     padding: 4px 20px;
     cursor: pointer;
+    display: inline-block;
 }
-
-button.Add:hover {
+button.Logout:hover{
     background-color:rgb(132, 210, 162);
 }
 
-button.Logout:hover {
+button.List {
+    color:rgb(255, 255, 255);
+    font-size: 16px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: rgb(93, 148, 114);
+    background-color: rgb(93, 148, 114);
+    border:none;
+    border-radius: 8px;
+    padding: 4px 20px;
+    cursor: pointer;
+    display: inline-block;
+    text-align:left; 
+}
+button.List:hover {
     background-color:rgb(132, 210, 162);
 }

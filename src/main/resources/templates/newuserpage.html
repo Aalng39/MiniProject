@@ -5,14 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link th:href="@{/css/displaypage.css}" href="C:\Users\andyn\Desktop\VISA\SSF\miniproject\src\main\resources\static\css\userstyle.css" rel="stylesheet" type="text/css">
-    <title>Main Page</title>
+    <title>New User Page</title>
 </head>
 <body class="text-center">
-  <h1 style="text-align:center;">Welcome New User</h1>   
+    <a th:href="@{/Login}"><button style="float: right;" class="Logout">Logout</button></a>
+    <h1 style="text-align:center;">Welcome <span th:text = ${todolist.userId}></span></h1>   
     <h2> Add a new Task </h2>
         <form
         action="#"
-        th:action="@{/ToDoList}"
+        th:action="@{/MyToDoList/AddedTask}"
         th:object="${todolist}"
         method="post">
         <p>
@@ -20,7 +21,7 @@
             <input type="text" th:field="*{description}">
             
             <span>
-                <input type="submit" value="Add"/>
+                <button class="Add" type="submit">Add</button>
             </span>
         </p>
         </form>

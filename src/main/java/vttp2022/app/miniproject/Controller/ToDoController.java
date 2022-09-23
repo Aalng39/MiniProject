@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+// import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 // import org.springframework.web.bind.annotation.RequestParam;
 
@@ -35,7 +36,7 @@ public class ToDoController {
         return "userpage";
     }
 
-    @GetMapping("/List")
+    @PostMapping("/MyToDoList")
     public String loginUsingUsername(@ModelAttribute ToDoItem toDoItem, Model model){
     
         CurrentUser.setCurrentUser(toDoItem.getUserId());
@@ -57,7 +58,7 @@ public class ToDoController {
         }                   
     }
   
-    @PostMapping("/ToDoList")
+    @PostMapping("/MyToDoList/AddedTask")
     public String showToDoList(@ModelAttribute ToDoItem toDoItem, Model model) {
 
         
@@ -73,10 +74,10 @@ public class ToDoController {
         model.addAttribute("itemlist", toDoList);
         model.addAttribute("alluseritems", allItems);
 
-        return "displaypage";
+        return "displayPage";
     }
 
-    @PostMapping("/NewPage")
+    @PostMapping("/MyToDoList/CompletedTask")
     public String deleteTasks(@ModelAttribute ToDoItem toDoItem, Model model){
 
         toDoItem.setUserId(CurrentUser.getCurrentUser());
@@ -85,11 +86,16 @@ public class ToDoController {
 
         ToDoList userItem = service.loginWithId(toDoItem.getUserId());
         List<ToDoItem> allItems = userItem.getToDoList();
+
+        ToDoItem completedTask = allItems.get(toDoItem.getIndex());
+        List<ToDoItem> completedTasks = service.createCompletedList(toDoItem.getUserId(), completedTask);
         
         allItems.remove(toDoItem.getIndex());
-
+        
         ToDoList toDoList = new ToDoList();
-        toDoList.setToDoList(allItems); 
+        toDoList.setToDoList(allItems);
+        toDoList.setCompletedList(completedTasks);
+        
         
         service.save(toDoList);
 
@@ -98,5 +104,18 @@ public class ToDoController {
         model.addAttribute("alluseritems", allItems);
 
         return "displaypage";
+    }
+
+    @GetMapping("/CompletedTaskList")
+    public String completedList(@ModelAttribute ToDoItem toDoItem, Model model){
+
+        toDoItem.setUserId(CurrentUser.getCurrentUser());
+        ToDoList userItem = service.loginWithId(toDoItem.getUserId());
+        List<ToDoItem> allItems = userItem.getCompletedList();
+
+        model.addAttribute("itemlist", userItem);
+        model.addAttribute("alluseritems", allItems);
+
+        return "completedpage";
     }
 }

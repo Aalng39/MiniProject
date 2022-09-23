@@ -5,22 +5,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link th:href="@{/css/displaypage.css}" rel="stylesheet" type="text/css">
-    <title>Main Page</title>
+    <title>My ToDo List</title>
 </head>
 
 <body>
-    <a th:href="Login"><button style="float: right;" class="Logout">Logout</button></a>
-    <h1 style="text-align:center;"><span th:text = ${todolist.userId}></span>'s To-Do List</h1>
+  
+  <h1 class="title"><span th:text = ${todolist.userId} ></span>'s To-Do List</h1>
+  <div style="float:right;"> 
+    <a th:href=@{/CompletedTaskList}><button class="List">Completed</button></a>  
+    <a th:href=@{/Login}><button class="Logout">Logout</button></a>
+  </div>   
     <h2>Add New Task</h2>
       <form
         action="#"
-        th:action="@{/ToDoList}"
+        th:action="@{/MyToDoList/AddedTask}"
         th:object="${todolist}"
         method="post">
 
         <p>
             Description: 
-            <input type="text" th:field="*{description}">
+            <input type="text" th:field="*{description}" onfocus="this.value=''">
             
             <span>
               <button class="Add" type="submit">Add</button>
@@ -43,7 +47,7 @@
           
           <form
             action="#"
-            th:action="@{/NewPage}"
+            th:action="@{/MyToDoList/CompletedTask}"
             th:object="${todolist}"
             method="post">
 
@@ -52,10 +56,10 @@
           <td th:text="${toDos.dateCreated}"></td>
           <!-- <td><input type="submit" value="Yes"></td> -->
           <td>
-            <input type = "hidden" th:value="${toDos.description}" name="description">
-            <input type = "hidden" th:value="${toDos.dateCreated}" name="dateCreated">
+            <!-- <input type = "hidden" th:value="${toDos.description}" name="description">
+            <input type = "hidden" th:value="${toDos.dateCreated}" name="dateCreated"> -->
             <input type = "hidden" th:value="${iterStat.index}" name="index">
-            <button class="Done" type="submit">Yes</button>
+            <button class="Done" type="submit">Yes!</button>
           </td>
           </form>
         </tr>

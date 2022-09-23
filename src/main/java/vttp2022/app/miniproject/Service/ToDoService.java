@@ -46,6 +46,27 @@ public class ToDoService implements ToDoRepo {
         }        
     }
 
+    public List<ToDoItem> createCompletedList(String userId, ToDoItem selectedItem){  
+
+        ToDoItem completedItem = new ToDoItem();
+        completedItem.setDescription(selectedItem.getDescription());
+        completedItem.setDateCreated(currentDateTime);
+        logger.info(completedItem.getDateCreated());
+
+        ToDoList userItem = (ToDoList) redisTemplate.opsForValue().get(userId);
+
+        if(userItem.getCompletedList() != null){
+            userItem.getCompletedList().add(completedItem);
+            
+            return userItem.getCompletedList();
+
+        }else{
+            ToDoList toDoList = new ToDoList();
+            toDoList.getToDoList().add(completedItem);
+            return toDoList.getToDoList();
+            }       
+    }
+
     @Override
     public void save(final ToDoList toDoList) {
         String username = CurrentUser.getCurrentUser();
