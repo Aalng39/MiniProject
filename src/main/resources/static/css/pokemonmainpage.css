@@ -1,0 +1,17 @@
+div.card {
+    display: inline-block;
+}
+div.typebox{
+    text-align: center;  
+}
+div.types{
+    display: inline-block;
+    text-align: center;  
+}
+h5.card-title{
+    text-align: center;
+    color: black;
+}
+a.title:link{
+    text-decoration: none;
+}
