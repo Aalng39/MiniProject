@@ -30,11 +30,11 @@ public class ToDoController {
     @Autowired
     RedisTemplate<String, Object> redisTemplate;
 
-    @GetMapping("/Login")
-    public String login(Model model) {
-        model.addAttribute("todolist", new ToDoItem());
-        return "userpage";
-    }
+    // @GetMapping("/ToDoLogin")
+    // public String login(Model model) {
+    //     model.addAttribute("todolist", new ToDoItem());
+    //     return "todouserpage";
+    // }
 
     @PostMapping("/MyToDoList")
     public String loginUsingUsername(@ModelAttribute ToDoItem toDoItem, Model model){

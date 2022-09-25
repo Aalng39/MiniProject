@@ -1,6 +1,13 @@
 div.card {
     display: inline-block;
-    padding-top: 18px;
+    padding: 20px;
+    
+}
+div.card-body{
+    text-align: center;
+}
+div.img-desc{
+    display: inline-block;
 }
 div.typebox{
     text-align: center;  
@@ -16,7 +23,6 @@ h5.card-title{
 a.title:link{
     text-decoration: none;
 }
-
 img.card-img-top {
     display: block;
     margin: auto;
@@ -26,13 +32,16 @@ img.card-img-top {
     width: 250px;
     border-radius: 8px;
 }
+
 span.typename{
-   color: hsl(0, 0%, 100%); 
-}
-a.typetext{
-    color: hsl(0, 0%, 100%);
-    text-align: center;
-}
+    color: hsl(0, 0%, 100%);  
+ }
+
+ a.typetext{
+     color: hsl(0, 0%, 100%);
+     text-align: center;
+ }
+ 
 a.typetext:link{
     text-decoration: none;
 }
@@ -42,11 +51,25 @@ a.drop{
 a.drop:link{
     text-decoration: none;
 }
-button{   
-    border:none;
-    border-radius: 8px;
-    padding: 4px 20px;
-    cursor: pointer;
+p.card-text{
+    text-align: left;
+    padding: 3px;
+    border: none;
+}
+#stat{
+    background-color: #0037ae;
+    padding: 0.5px;
+}
+div.container{
+    margin: auto;
+}
+p.card-text1{
+    text-align: left;
+    color: white;
+    margin: auto;
+    padding: 5px;
+    letter-spacing: 1px;
+    border: none;
 }
 button.add{
     border:none;
@@ -61,65 +84,67 @@ button.add{
 button.add:hover{
     background-color: hsl(0, 0%, 70%);
 }
-#icon{
-    color: black;
+button{   
+    border:none;
+    border-radius: 8px;
+    padding: 4px 20px;
+    cursor: pointer;
 }
 /* Button Colours Based on Type*/
 button.Grass{
-    background-color: hsl(98, 52%, 54%);
+    background-color: #7AC74C;
 }
 button.Fire{
-    background-color: hsl(26, 85%, 56%);
+    background-color: #EE8130;
 }
 button.Water{
-    background-color: hsl(221, 82%, 66%);
+    background-color: #6390F0;
 }
 button.Bug{
-    background-color: hsl(67, 75%, 41%);
+    background-color: #A6B91A;
 }
 button.Normal{
-    background-color: hsl(59, 21%, 57%);
+    background-color: #A8A77A;
 }
 button.Dark{
-    background-color: hsl(24, 23%, 36%);
+    background-color: #705746;
 }
 button.Poison{
-    background-color: hsl(301, 45%, 44%);
+    background-color: #A33EA1;
 }
 button.Electric{
-    background-color: hsl(48, 93%, 57%);
+    background-color: #F7D02C;
 }
 button.Ground{
-    background-color: hsl(43, 68%, 64%);
+    background-color: #E2BF65;
 }
 button.Fairy{
-    background-color: hsl(330, 50%, 68%);
+    background-color: #D685AD;
 }
 button.Fighting{
-    background-color: hsl(2, 66%, 46%);
+    background-color: #C22E28;
 }
 button.Psychic{
-    background-color: hsl(342, 93%, 65%);
+    background-color: #F95587;
 }
 button.Rock{
-    background-color: hsl(50, 54%, 46%);
+    background-color: #B6A136;
 }
 button.Ghost{
-    background-color: hsl(266, 27%, 47%);
+    background-color: #735797;
 }
 button.Ice{
-    background-color: hsl(177, 47%, 72%);
+    background-color: #96D9D6;
 }
 button.Dragon{
-    background-color: hsl(257, 97%, 60%);
+    background-color: #6F35FC;
 }
 button.Flying{
-    background-color: hsl(256, 81%, 76%);
+    background-color: #A98FF3;
 }
 button.Steel{
-    background-color: hsl(240, 19%, 76%);
+    background-color: #B7B7CE;
 }
-
 /* After Hover */
 button.Grass:hover{
     background-color: hsla(98, 52%, 54%, 0.70);

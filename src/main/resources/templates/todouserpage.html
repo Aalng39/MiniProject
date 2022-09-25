@@ -14,7 +14,7 @@
     <link th:href="@{/css/userstyle.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
-  <h1 style="text-align:center;">My Pokédex</h1>
+  <h1 style="text-align:center;">My ToDoApp</h1>
     <div class="container">
       <div class="row">
         <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
@@ -23,8 +23,8 @@
               <h5 class="card-title text-center mb-5 fw-light fs-5">Sign In</h5>
               <form 
                 action="#"
-                th:action="@{/Pokemon}"
-                th:object="${pokelist}"
+                th:action="@{/ToDoList}"
+                th:object="${todolist}"
                 method="post">
 
                 <div class="form-floating mb-3">
