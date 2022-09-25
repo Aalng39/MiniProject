@@ -42,6 +42,9 @@
                 </div>
               </ul>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" th:href=@{/Login}>Logout</a>
+            </li>
           </ul>
           <form class="d-flex" role="search" th:action="@{/Pokemon/search}" th:object="${searchpokemon}">
             <input class="form-control me-2" type="search" placeholder="Search Pokémon" aria-label="Search" th:field="*{name}" onfocus="this.value=''">

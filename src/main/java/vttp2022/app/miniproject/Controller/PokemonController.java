@@ -72,6 +72,24 @@ public class PokemonController {
         model.addAttribute("searchpokemon",  pokemonAttribute);
         return "pokemon";
     }
+    @GetMapping("/Pokemon/MyTeam")
+        public String getMyPokemonTeam(@ModelAttribute PokemonAttribute pokemonAttribute, Model model){
+
+            pokemonAttribute.setUserId(CurrentUser.getCurrentUser());
+
+            PokemonAttribute userPokeAtt = redisService.loginWithId(pokemonAttribute.getUserId());
+
+            List<PokemonAttribute> pokemon = new LinkedList<>();
+            for(String allName : userPokeAtt.getSavedName()){
+            PokemonAttribute poke = service.getMyPokemon(allName);
+            pokemon.add(poke);
+            }
+            List<String> typesList = service.getTypesList();
+            model.addAttribute("pokemon", pokemon);
+            model.addAttribute("typelist", typesList);
+            model.addAttribute("searchpokemon",  pokemonAttribute);
+            return "mypokemon";
+        }
 
     @PostMapping("/Pokemon/MyTeam")
     public String addPokemonToMyTeam(@ModelAttribute PokemonAttribute pokemonAttribute, Model model){
@@ -95,25 +113,6 @@ public class PokemonController {
         model.addAttribute("pokemon", pokemon);
         model.addAttribute("typelist", typesList);
         model.addAttribute("searchpokemon", pokemonAttribute);
-        return "mypokemon";
-    }
-
-    @GetMapping("/Pokemon/MyTeam")
-    public String getMyPokemonTeam(@ModelAttribute PokemonAttribute pokemonAttribute, Model model){
-
-        pokemonAttribute.setUserId(CurrentUser.getCurrentUser());
-
-        PokemonAttribute userPokeAtt = redisService.loginWithId(pokemonAttribute.getUserId());
-
-        List<PokemonAttribute> pokemon = new LinkedList<>();
-        for(String allName : userPokeAtt.getSavedName()){
-        PokemonAttribute poke = service.getMyPokemon(allName);
-        pokemon.add(poke);
-        }
-        List<String> typesList = service.getTypesList();
-        model.addAttribute("pokemon", pokemon);
-        model.addAttribute("typelist", typesList);
-        model.addAttribute("searchpokemon",  pokemonAttribute);
         return "mypokemon";
     }
 
