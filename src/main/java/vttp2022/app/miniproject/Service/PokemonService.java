@@ -17,10 +17,11 @@ import jakarta.json.JsonObject;
 import jakarta.json.JsonReader;
 import vttp2022.app.miniproject.Model.PokemonAttribute;
 import vttp2022.app.miniproject.Model.PokemonList;
+import vttp2022.app.miniproject.Model.PokemonStats;
 
 @Service
 public class PokemonService { 
-    private static final Logger logger = LoggerFactory.getLogger(ToDoService.class);
+    private static final Logger logger = LoggerFactory.getLogger(PokemonService.class);
     
     @Value("${pokemonTypes}")
     private String pokemonTypeURL;
@@ -120,13 +121,13 @@ public class PokemonService {
     // ---------------------METHOD 3----------------------
     //
     //
-    public List<PokemonAttribute> getPokemonDetails(String name){
+    public List<PokemonAttribute> getPokemonDetails(String nameOrId){
         
         List<PokemonAttribute> sPokeAttList = new LinkedList<>();
         // Input Name
         PokemonAttribute pokeDetails = new PokemonAttribute();
 
-        String pokeSearchName = name.toLowerCase(); 
+        String pokeSearchName = nameOrId.toLowerCase(); 
         
         ResponseEntity<String> respD = restTemplate.getForEntity((pokemonNameURL + "/" + pokeSearchName), String.class);
         String payloadD = respD.getBody();
@@ -140,6 +141,12 @@ public class PokemonService {
         String capPokeName = nameById.substring(0, 1).toUpperCase() + nameById.substring(1);
         pokeDetails.setName(capPokeName);
 
+        // GET POKEMON ID
+        String pokeId = jsonObjD.getJsonNumber("id").toString();
+        pokeDetails.setPokemonId(pokeId);
+        // logger.info(pokeDetails.getPokemonId());
+
+        // GET Height & Weight
         String height = (jsonObjD.getJsonNumber("height")).toString();
         pokeDetails.setHeight(height);
         String weight = jsonObjD.getJsonNumber("weight").toString();
@@ -176,10 +183,7 @@ public class PokemonService {
             sPokeAbi.add(capPokeAbi);                
         };
         pokeDetails.setAbilities(sPokeAbi);
-        for(String ability : pokeDetails.getAbilities()){
-            logger.info(ability);
-        }
-
+        
         ResponseEntity<String> respDesc = restTemplate.getForEntity((pokemonSpeciesURL + "/" + pokeSearchName), String.class);
         String payloadDesc = respDesc.getBody();
         StringReader stringRDesc = new StringReader(payloadDesc);
@@ -189,11 +193,31 @@ public class PokemonService {
         
         JsonObject lang = jsonArrDesc.get(0).asJsonObject();
         String desc = lang.getString("flavor_text").replace("\f", " ");
-        logger.info(desc);
         pokeDetails.setDescription(desc);
+
+        // GET STATS
+        PokemonStats stats = new PokemonStats();
+        JsonArray jsonArrayStat = jsonObjD.getJsonArray("stats");
+        
+        stats.setHp(((jsonArrayStat.get(0)).asJsonObject()).getJsonNumber("base_stat").toString());
+        stats.setAttack(((jsonArrayStat.get(1)).asJsonObject()).getJsonNumber("base_stat").toString());
+        stats.setDefense(((jsonArrayStat.get(2)).asJsonObject()).getJsonNumber("base_stat").toString());
+        stats.setSpecialAttack(((jsonArrayStat.get(3)).asJsonObject()).getJsonNumber("base_stat").toString());
+        stats.setSpecialDefense(((jsonArrayStat.get(4)).asJsonObject()).getJsonNumber("base_stat").toString());
+        stats.setSpeed(((jsonArrayStat.get(5)).asJsonObject()).getJsonNumber("base_stat").toString());
+
+        pokeDetails.setBaseStats(stats);
+        
+        // Max 240
+        // logger.info(stats.getHp());
+        // logger.info(stats.getAttack());
+        // logger.info(stats.getDefense());
+        // logger.info(stats.getSpecialAttack());
+        // logger.info(stats.getSpecialDefense());
+        // logger.info(stats.getSpeed());
+        
         sPokeAttList.add(pokeDetails);
 
-        
         PokemonList pokeDetailsList = new PokemonList();
         pokeDetailsList.setDetailsList(sPokeAttList);
 

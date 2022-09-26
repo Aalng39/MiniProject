@@ -1,6 +1,7 @@
 div.card {
     display: inline-block;
     padding-top: 18px;
+    letter-spacing: 1px;
 }
 div.typebox{
     text-align: center;  
@@ -16,7 +17,6 @@ h5.card-title{
 a.title:link{
     text-decoration: none;
 }
-
 img.card-img-top {
     display: block;
     margin: auto;
@@ -32,6 +32,7 @@ span.typename{
 a.typetext{
     color: hsl(0, 0%, 100%);
     text-align: center;
+    letter-spacing: 1px;
 }
 a.typetext:link{
     text-decoration: none;
@@ -64,60 +65,81 @@ button.add:hover{
 #icon{
     color: black;
 }
+#typebutton1{
+    margin-bottom: 5px;
+}
 /* Button Colours Based on Type*/
 button.Grass{
     background-color: hsl(98, 52%, 54%);
+    width: 110px;;
 }
 button.Fire{
     background-color: hsl(26, 85%, 56%);
+    width: 110px;
 }
 button.Water{
     background-color: hsl(221, 82%, 66%);
+    width: 110px;
 }
 button.Bug{
     background-color: hsl(67, 75%, 41%);
+    width: 110px;
 }
 button.Normal{
     background-color: hsl(59, 21%, 57%);
+    width: 110px;
 }
 button.Dark{
     background-color: hsl(24, 23%, 36%);
+    width: 110px;
 }
 button.Poison{
     background-color: hsl(301, 45%, 44%);
+    width: 110px;
 }
 button.Electric{
     background-color: hsl(48, 93%, 57%);
+    width: 110px;
 }
 button.Ground{
     background-color: hsl(43, 68%, 64%);
+    width: 110px;
 }
 button.Fairy{
     background-color: hsl(330, 50%, 68%);
+    width: 110px;
 }
 button.Fighting{
     background-color: hsl(2, 66%, 46%);
+    width: 110px;
 }
 button.Psychic{
     background-color: hsl(342, 93%, 65%);
+    width: 110px;
 }
 button.Rock{
     background-color: hsl(50, 54%, 46%);
+    width: 110px;
 }
 button.Ghost{
     background-color: hsl(266, 27%, 47%);
+    width: 110px;
 }
 button.Ice{
     background-color: hsl(177, 47%, 72%);
+    width: 110px;
 }
 button.Dragon{
     background-color: hsl(257, 97%, 60%);
+    width: 110px;
 }
 button.Flying{
     background-color: hsl(256, 81%, 76%);
+    width: 110px;
 }
 button.Steel{
     background-color: hsl(240, 19%, 76%);
+    width: 110px;
 }
 
 /* After Hover */

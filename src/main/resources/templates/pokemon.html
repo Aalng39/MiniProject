@@ -34,9 +34,7 @@
               <ul class="dropdown-menu" style="text-align: center;">
                 <div th:each="type, iterStat : ${typelist}" th:value="${typelist[iterStat.index]}">
                 <li>
-                  <button th:class="${type}">
-                    <a class="drop" href="#" th:href="@{/Pokemon/Types/{type}(type = ${type})}"><span class="typename" th:text="${type}"></span></a>
-                  </button>
+                  <button th:class="${type}"><a href="#" th:href="@{/Pokemon/Types/{type}(type = ${type})}" class="typetext" th:text="${type}"></a></button>
                 </li>
                 <li><hr class="dropdown-divider"></li>
                 </div>
@@ -46,7 +44,7 @@
               <a class="nav-link" href="#" th:href=@{/Login}>Logout</a>
             </li>
           </ul>
-          <form class="d-flex" role="search" th:action="@{/Pokemon/search}" th:object="${searchpokemon}">
+          <form class="d-flex" role="search" th:action="@{/Pokemon/search}" th:object="${searchpokemon}" autocomplete="off">
             <input class="form-control me-2" type="search" placeholder="Search Pokémon" aria-label="Search" th:field="*{name}" onfocus="this.value=''">
             <button class="btn btn-outline-success" type="submit">Search</button>
           </form>
@@ -69,7 +67,7 @@
           <h5 class="card-title" th:text="${poke.name}"></h5>         
           <div class="typebox">
             <div class="types" th:each="type, iterStat : ${poke.types}" th:value="${(poke.types)[iterStat.index]}">
-              <button th:class="${type}"><a href="#" th:href="@{/Pokemon/Types/{type}(type = ${type})}" class="typetext" th:text="${type}"></a></button>
+              <button id="typebutton1" th:class="${type}"><a href="#" th:href="@{/Pokemon/Types/{type}(type = ${type})}" class="typetext" th:text="${type}"></a></button>
             </div>
           </div>
           <div class="text-end">

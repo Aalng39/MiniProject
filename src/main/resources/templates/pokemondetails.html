@@ -32,11 +32,9 @@
                 Pokémon Types
               </a>
               <ul class="dropdown-menu" style="text-align: center;">
-                <div th:each="type, iterStat : ${typelist}" th:value="${typelist[iterStat.index]}">
+                <div class="types" th:each="type, iterStat : ${typelist}" th:value="${typelist[iterStat.index]}">
                 <li>
-                  <button th:class="${type}">
-                    <a class="drop" href="#" th:href="@{/Pokemon/Types/{type}(type = ${type})}"><span class="typename" th:text="${type}"></span></a>
-                  </button>
+                  <button th:class="${type}"><a href="#" th:href="@{/Pokemon/Types/{type}(type = ${type})}" class="typetext" th:text="${type}"></a></button>
                 </li>
                 <li><hr class="dropdown-divider"></li>
                 </div>
@@ -46,8 +44,8 @@
               <a class="nav-link" href="#" th:href=@{/Login}>Logout</a>
             </li>
           </ul>
-          <form class="d-flex" role="search" th:action="@{/Pokemon/search}" th:object="${searchpokemon}">
-            <input class="form-control me-2" type="search" placeholder="Search Pokémon" aria-label="Search" th:field="*{name}" onfocus="this.value=''">
+          <form class="d-flex" role="search" th:action="@{/Pokemon/search}" th:object="${searchpokemon}" autocomplete="off">
+            <input class="form-control me-2" type="search" placeholder="Search Pokémon" aria-label="Search" th:field="*{name}">
             <button class="btn btn-outline-success" type="submit">Search</button>
           </form>
         </div>
@@ -75,42 +73,52 @@
           </button>
           </div>
         </form>
-        <h5 class="card-title" th:text="${poke.name}"></h5>
+        <h3 class="card-title" th:text="${poke.name}" style="display:inline;"></h3>
+        <h3 style="display:inline;">&nbsp;&nbsp;#<span class="card-title" th:text="${poke.pokemonId}" style="display:inline;"></span></h3>       
         <div>
-          <div class="card mb-3" style="max-width: 900px;">
+          <div id="secondbox" class="card mb-3" style="max-width: 900px;">
             <div class="row g-0">
-              <div class="col-md-4">
-              <img th:src="${poke.imageUrl}" class="card-img-top" alt="...">
+              <div class="col-md-4" >
+                <a class="title" href="#" th:href="@{/Pokemon/{name}(name = ${poke.name})}"><img th:src="${poke.imageUrl}" class="card-img-top" alt="..."></a>
               </div>
 
-              <div class="col-md-8" style="text-align:center;">
+              <div class="col-md-8">
                 <div>
+                  <div id="desctext" class="card" style="width: 35.5rem;">
                   <p class="card-text" th:text="${poke.description}"></p>
-                  <div id="stat" class="card" style="width: 35rem;">
+                  </div>
+                  <div id="stat" class="card" style="width: 35.5rem;">
                     <div class="card-body">
 
                         <div class="container">
                           <div class="row">
-                            <div class="col-6 col-sm-5">
+                            <div class="col-6 col-sm-4">
                               <p class="card-text1">Height</p>
                               <p class="card-text1"><span th:text="(${poke.height})/10"></span> m</p>
                             </div>
-                            <div class="col-6 col-sm-5 offset-md-2">
+                            <div class="col-6 col-sm-4">
                               <p class="card-text1">Weight</p>
                               <p class="card-text1"><span th:text="(${poke.weight})/10"></span> kg</p>
                             </div>
-                        
+
+                            <div class="col-6 col-sm-4">
+                              <div class="types" th:each="type, iterStat : ${poke.types}" th:value="${(poke.types)[iterStat.index]}">
+                                <button id="typebutton2" th:class="${type}"><a href="#" th:href="@{/Pokemon/Types/{type}(type = ${type})}" class="typetext" th:text="${type}"></a></button>
+                              </div>
+                            </div>
+                            
+
                             <!-- Force next columns to break to new line at md breakpoint and up -->
                             <div class="w-100 d-none d-md-block"></div>
-                            <div class="col-6 col-sm-5">
+                            <div class="col-6 col-sm-4">
                             <p class="card-text1">Ability</p>
                             </div> 
+                            
+
                             <div class="w-100 d-none d-md-block"></div> 
-                            <div class="col-6 col-sm-5" th:each="ability, iterStat : ${poke.abilities}" th:value="${(poke.abilities)[iterStat.index]}">
-                                                                                    
+                            <div class="col-6 col-sm-4" th:each="ability, iterStat : ${poke.abilities}" th:value="${(poke.abilities)[iterStat.index]}">
                               <p class="card-text1" th:text="(${ability})"></p>                               
                             </div>
-                          
                           </div>
                         </div>
                         
@@ -124,9 +132,58 @@
             
             </div>
           </div>
+       
+
+          <div id="thirdbox" class="card mb-3" style="max-width: 900px;">
+            <!-- HP -->
+
+            <div class="container">
+              <div class="row">
+                <div class="col-3">
+                <p class="progress-label">HP:<span class="stat" th:text="${poke.baseStats.hp}"></span></p>
+                <p class="progress-label">Attack:<span class="stat" th:text="${poke.baseStats.attack}"></span></p>
+                <p class="progress-label">Defense:<span class="stat" th:text="${poke.baseStats.defense}"></span></p>
+                <p class="progress-label">Sp. Atk:<span class="stat" th:text="${poke.baseStats.specialAttack}"></span></p>
+                <p class="progress-label">Sp. Def:<span class="stat" th:text="${poke.baseStats.specialDefense}"></span></p>
+                <p class="progress-label">Speed:<span class="stat" th:text="${poke.baseStats.speed}"></span></p>
+                </div>
+              
+              <div class="col">
+              <div class="progress">
+                <div id="hp" class="progress-bar" role="progressbar" aria-label="Basic example" th:style="'width:' + (${poke.baseStats.hp}/2.4) + '%;'" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            
+            <!-- ATTACK -->
+              <div class="progress">
+                <div id="atk" class="progress-bar" role="progressbar" aria-label="Basic example" th:style="'width:' + (${poke.baseStats.attack}/2.4) + '%;'" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            <!-- DEFENSE -->
+              <div class="progress">
+                <div id="def" class="progress-bar" role="progressbar" aria-label="Basic example" th:style="'width:' + (${poke.baseStats.defense}/2.4) + '%;'" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            <!-- SPECIAL-ATTACK -->
+              <div class="progress">
+                <div id="spatk" class="progress-bar" role="progressbar" aria-label="Basic example" th:style="'width:' + (${poke.baseStats.specialAttack}/2.4) + '%;'" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            <!-- SPECIAL-DEFENSE -->
+              <div class="progress">
+                <div id="spdef" class="progress-bar" role="progressbar" aria-label="Basic example" th:style="'width:' + (${poke.baseStats.specialDefense}/2.4) + '%;'" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            <!-- SPEED -->
+              <div class="progress">
+                <div id="speed" class="progress-bar" role="progressbar" aria-label="Basic example" th:style="'width:' + (${poke.baseStats.speed}/2.4) + '%;'" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+            <!-- empty columns -->
+            </div>
+          </div>
+
+          </div>
         </div>
+      </div>
 
       </div>
     </div>
+    
   </div>
 </body>

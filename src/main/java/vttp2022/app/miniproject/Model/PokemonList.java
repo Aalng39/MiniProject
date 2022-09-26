@@ -8,7 +8,7 @@ public class PokemonList implements Serializable {
     private List<PokemonAttribute> displayList = new LinkedList<>();
     private List<PokemonAttribute> detailsList = new LinkedList<>();
     private List<PokemonAttribute> displayListByType = new LinkedList<>();
-
+    
     public List<PokemonAttribute> getDisplayListByType() {
         return displayListByType;
     }

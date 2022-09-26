@@ -2,8 +2,8 @@ package vttp2022.app.miniproject.Service;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+// import org.slf4j.Logger;
+// import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import vttp2022.app.miniproject.Model.PokemonAttribute;
 
 @Service
 public class PokeRedisService implements PokeRedisRepo {
-    private static final Logger logger = LoggerFactory.getLogger(ToDoService.class);
+    // private static final Logger logger = LoggerFactory.getLogger(PokeRedisService.class);
     
     @Autowired
     RedisTemplate<String, Object> redisTemplate;

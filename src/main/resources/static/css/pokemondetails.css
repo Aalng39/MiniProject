@@ -1,7 +1,16 @@
 div.card {
     display: inline-block;
+    padding: 5px;
+    width: 1000px;
+    letter-spacing: 1px;
+}
+h3.card-title{
+    font-weight: bold;
+}
+#secondbox{
+    text-align: center;
     padding: 20px;
-    
+    margin-top: 20px;
 }
 div.card-body{
     text-align: center;
@@ -13,9 +22,9 @@ div.typebox{
     text-align: center;  
 }
 div.types{
-    display: inline-block;
     text-align: center; 
 }
+
 h5.card-title{
     text-align: center;
     color: black;
@@ -25,21 +34,20 @@ a.title:link{
 }
 img.card-img-top {
     display: block;
-    margin: auto;
+    margin: none;
     background-color: hsl(0, 0%, 90%);
     transition: background-color 300ms;
-    height: 250px;
-    width: 250px;
+    height: 260px;
+    width: 260px;
     border-radius: 8px;
 }
-
 span.typename{
     color: hsl(0, 0%, 100%);  
  }
 
  a.typetext{
-     color: hsl(0, 0%, 100%);
-     text-align: center;
+    color: hsl(0, 0%, 100%);
+    letter-spacing: 1px;  
  }
  
 a.typetext:link{
@@ -56,9 +64,14 @@ p.card-text{
     padding: 3px;
     border: none;
 }
+#desctext{
+    border: none;
+    padding: 20px;
+}
 #stat{
     background-color: #0037ae;
-    padding: 0.5px;
+    margin: none;
+    padding: 6px;
 }
 div.container{
     margin: auto;
@@ -67,10 +80,11 @@ p.card-text1{
     text-align: left;
     color: white;
     margin: auto;
-    padding: 5px;
+    padding: 3px;
     letter-spacing: 1px;
     border: none;
 }
+ 
 button.add{
     border:none;
     border-radius: 8px;
@@ -90,61 +104,85 @@ button{
     padding: 4px 20px;
     cursor: pointer;
 }
+#typebutton2{
+    margin: 2px;
+    height: 30px;
+    width: 150px;
+}
 /* Button Colours Based on Type*/
 button.Grass{
-    background-color: #7AC74C;
+    background-color: hsl(98, 52%, 54%);
+    width: 110px;;
 }
 button.Fire{
-    background-color: #EE8130;
+    background-color: hsl(26, 85%, 56%);
+    width: 110px;
 }
 button.Water{
-    background-color: #6390F0;
+    background-color: hsl(221, 82%, 66%);
+    width: 110px;
 }
 button.Bug{
-    background-color: #A6B91A;
+    background-color: hsl(67, 75%, 41%);
+    width: 110px;
 }
 button.Normal{
-    background-color: #A8A77A;
+    background-color: hsl(59, 21%, 57%);
+    width: 110px;
 }
 button.Dark{
-    background-color: #705746;
+    background-color: hsl(24, 23%, 36%);
+    width: 110px;
 }
 button.Poison{
-    background-color: #A33EA1;
+    background-color: hsl(301, 45%, 44%);
+    width: 110px;
 }
 button.Electric{
-    background-color: #F7D02C;
+    background-color: hsl(48, 93%, 57%);
+    width: 110px;
 }
 button.Ground{
-    background-color: #E2BF65;
+    background-color: hsl(43, 68%, 64%);
+    width: 110px;
 }
 button.Fairy{
-    background-color: #D685AD;
+    background-color: hsl(330, 50%, 68%);
+    width: 110px;
 }
 button.Fighting{
-    background-color: #C22E28;
+    background-color: hsl(2, 66%, 46%);
+    width: 110px;
 }
 button.Psychic{
-    background-color: #F95587;
+    background-color: hsl(342, 93%, 65%);
+    width: 110px;
 }
 button.Rock{
-    background-color: #B6A136;
+    background-color: hsl(50, 54%, 46%);
+    width: 110px;
 }
 button.Ghost{
-    background-color: #735797;
+    background-color: hsl(266, 27%, 47%);
+    width: 110px;
 }
 button.Ice{
-    background-color: #96D9D6;
+    background-color: hsl(177, 47%, 72%);
+    width: 110px;
 }
 button.Dragon{
-    background-color: #6F35FC;
+    background-color: hsl(257, 97%, 60%);
+    width: 110px;
 }
 button.Flying{
-    background-color: #A98FF3;
+    background-color: hsl(256, 81%, 76%);
+    width: 110px;
 }
 button.Steel{
-    background-color: #B7B7CE;
+    background-color: hsl(240, 19%, 76%);
+    width: 110px;
 }
+
 /* After Hover */
 button.Grass:hover{
     background-color: hsla(98, 52%, 54%, 0.70);
@@ -200,3 +238,52 @@ button.Flying:hover{
 button.Steel:hover{
     background-color: hsl(240, 19%, 76%, 0.70);
 }
+#thirdbox{
+    text-align: center;
+    padding: 10px;
+}
+/* Stats Bar */
+p.progress-label{
+    margin: 10px;
+    height: 30px;
+    text-align: start;
+    padding: 2px;
+    padding-left: 35px;
+    border: solid 1px black;
+    border-radius: 4px;
+}
+span.stat{
+    margin: 10px;
+}
+
+div.progress{
+    margin: 10px;
+    height: 30px;
+    width: 500px;
+    padding: 4px;  
+}
+#hp{
+    background-color: #ff0000;
+    border-radius: 4px;
+}
+#atk{
+    background-color: #f08030;
+    border-radius: 4px;
+}
+#def{
+    background-color: #f8d030;
+    border-radius: 4px;
+}
+#spatk{
+    background-color: #6890f0;
+    border-radius: 4px;
+}
+#spdef{
+    background-color: #78c850;
+    border-radius: 4px;
+}
+#speed{
+    background-color: #f85888;
+    border-radius: 4px;
+}
+            
