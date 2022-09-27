@@ -6,8 +6,7 @@ import java.util.List;
 
 public class PokemonAttribute implements Serializable {
     private int index; 
-    private String pokemonId; 
-    
+    private String pokemonId;    
     private String userId;   
     private String name;
     private String imageUrl;
@@ -16,8 +15,9 @@ public class PokemonAttribute implements Serializable {
     private String description;
     private List<String> types = new LinkedList<>();
     private List<String> abilities = new LinkedList<>();
-    private List<String> savedName = new LinkedList<>();
     private PokemonStats baseStats;
+    private List<String> savedName = new LinkedList<>();
+   
 
     public PokemonStats getBaseStats() {
         return baseStats;

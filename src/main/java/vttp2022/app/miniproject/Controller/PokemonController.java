@@ -35,7 +35,7 @@ public class PokemonController {
     RedisTemplate<String, Object> redisTemplate;
 
     @GetMapping("/Login")
-    public String login(Model model) {
+    public String login(Model model){
         model.addAttribute("pokelist", new PokemonAttribute());
         return "userpage";
     }
@@ -100,6 +100,7 @@ public class PokemonController {
 
         PokemonAttribute userPokeAtt = redisService.loginWithId(pokemonAttribute.getUserId());
         userPokeAtt.getSavedName().add(pokeName);
+        
         for(String name : userPokeAtt.getSavedName()){
             logger.info(name);}
         redisService.save(userPokeAtt);
@@ -135,12 +136,12 @@ public class PokemonController {
 
         pokemonAttribute.setUserId(CurrentUser.getCurrentUser());
 
-        List<String> typesList = service.getTypesList();
-        
+        List<String> typesList = service.getTypesList();       
         List<PokemonAttribute> pokemonD = service.getPokemonDetails(name);
         model.addAttribute("pokemonD" , pokemonD);
         model.addAttribute("typelist", typesList);
-        model.addAttribute("searchpokemon",  pokemonAttribute);  
+        model.addAttribute("searchpokemon",  pokemonAttribute);
+
         return "pokemondetails";
     }
 
@@ -178,6 +179,6 @@ public class PokemonController {
         model.addAttribute("pokemon", pokemon);
         model.addAttribute("typelist", typesList);
         model.addAttribute("searchpokemon", pokemonAttribute);
-        return "mypokemon";
+        return "redirect:/Pokemon/MyTeam";
     }
 }

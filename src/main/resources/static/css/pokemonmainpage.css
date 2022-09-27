@@ -1,3 +1,6 @@
+a.navbar-brand{
+    cursor: default;
+}
 div.card {
     display: inline-block;
     padding-top: 18px;
@@ -196,4 +199,9 @@ button.Flying:hover{
 }
 button.Steel:hover{
     background-color: hsl(240, 19%, 76%, 0.70);
+}
+
+
+a.nouser{
+    color: black;
 }

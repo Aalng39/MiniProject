@@ -1,3 +1,7 @@
+a.navbar-brand{
+    cursor: default;
+}
+
 div.card {
     display: inline-block;
     padding: 5px;
@@ -5,13 +9,18 @@ div.card {
     letter-spacing: 1px;
 }
 h3.card-title{
-    font-weight: bold;
+    font-weight: bolder;
 }
 #secondbox{
     text-align: center;
-    padding: 20px;
+    padding: 30px;
     margin-top: 20px;
 }
+#diplaytypes{
+    margin-top: 20px;
+    height: 75px;
+}
+
 div.card-body{
     text-align: center;
 }
@@ -22,13 +31,17 @@ div.typebox{
     text-align: center;  
 }
 div.types{
-    text-align: center; 
+    text-align: center;
+    display: inline;
+}
+p.type-name{
+    margin-right: 35px;
+    margin-bottom: 35px;
+    display: inline;
+    padding: 0px;
+    font-weight: bold;
 }
 
-h5.card-title{
-    text-align: center;
-    color: black;
-}
 a.title:link{
     text-decoration: none;
 }
@@ -45,9 +58,10 @@ span.typename{
     color: hsl(0, 0%, 100%);  
  }
 
- a.typetext{
+a.typetext{
     color: hsl(0, 0%, 100%);
-    letter-spacing: 1px;  
+    letter-spacing: 1px; 
+     
  }
  
 a.typetext:link{
@@ -66,12 +80,12 @@ p.card-text{
 }
 #desctext{
     border: none;
-    padding: 20px;
+    padding: 10px;
 }
 #stat{
     background-color: #0037ae;
-    margin: none;
-    padding: 6px;
+    margin-right: none;
+    padding: 6px;   
 }
 div.container{
     margin: auto;
@@ -81,8 +95,10 @@ p.card-text1{
     color: white;
     margin: auto;
     padding: 3px;
+    font-weight: bold; 
     letter-spacing: 1px;
     border: none;
+    /* border: solid 1px black; */
 }
  
 button.add{
@@ -105,7 +121,6 @@ button{
     cursor: pointer;
 }
 #typebutton2{
-    margin: 2px;
     height: 30px;
     width: 150px;
 }
@@ -248,12 +263,14 @@ p.progress-label{
     height: 30px;
     text-align: start;
     padding: 2px;
-    padding-left: 35px;
+    padding-left: 30px;
+    padding-right: 30px;
     border: solid 1px black;
     border-radius: 4px;
+    font-weight: bold; 
 }
 span.stat{
-    margin: 10px;
+    margin-left: 10px;
 }
 
 div.progress{
@@ -285,5 +302,10 @@ div.progress{
 #speed{
     background-color: #f85888;
     border-radius: 4px;
+}
+
+
+a.nouser{
+    color: black;
 }
             
