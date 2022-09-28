@@ -13,7 +13,8 @@
     crossorigin="anonymous">
     <link th:href="@{/css/userstyle.css}" rel="stylesheet" type="text/css">
 </head>
-<body>
+
+<body th:style="'background:url('+ @{/img/pokeball.png} +'); background-repeat: no-repeat, repeat; background-size: cover;'">
   <button class="home"><a class="home" href="#" th:href="@{/}">Home</a></button>
   <h1 style="text-align:center;">My Pokédex</h1>
     <div class="container">
