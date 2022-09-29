@@ -17,8 +17,9 @@ public class PokemonAttribute implements Serializable {
     private List<String> abilities = new LinkedList<>();
     private PokemonStats baseStats;
     private List<String> savedName = new LinkedList<>();
+    private int pageNo;
+    private List<String> evolutionList = new LinkedList<>();
    
-
     public PokemonStats getBaseStats() {
         return baseStats;
     }
@@ -94,4 +95,21 @@ public class PokemonAttribute implements Serializable {
     public void setWeight(String weight) {
         this.weight = weight;
     }
+
+    public int getPageNo() {
+        return pageNo;
+    }
+
+    public void setPageNo(int pageNo) {
+        this.pageNo = pageNo;
+    }
+
+    public List<String> getEvolutionList() {
+        return evolutionList;
+    }
+
+    public void setEvolutionList(List<String> evolutionList) {
+        this.evolutionList = evolutionList;
+    }
+    
 }

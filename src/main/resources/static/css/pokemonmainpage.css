@@ -15,7 +15,34 @@ a.navbar-brand{
     color: white;
     border: solid 1px #0037ae; 
 }
-
+#next{
+    background-color: #0037ae ;
+    color: white;
+    border: solid 1px #0037ae;
+    margin-bottom: 20px;
+    margin-right: 25px;
+    margin-left: 25px;
+    margin-top: 15px; 
+}
+#next:hover{
+    background-color: white;
+    color: #0037ae;
+    border: solid 1px #0037ae; 
+}
+#previous{
+    background-color: #0037ae ;
+    color: white;
+    border: solid 1px #0037ae;
+    margin-bottom: 20px;
+    margin-right: 25px;
+    margin-left: 25px;
+    margin-top: 15px; 
+}
+#previous:hover{
+    background-color: white;
+    color: #0037ae;
+    border: solid 1px #0037ae; 
+}
 div.card {
     display: inline-block;
     padding-top: 18px;

@@ -183,4 +183,25 @@ public class PokemonController {
         model.addAttribute("searchpokemon", pokemonAttribute);
         return "redirect:/Pokemon/MyTeam";
     }
+
+
+    @GetMapping("/Pokemon/Page/{pageNo}")
+    public String getPokemonByPage(@PathVariable String pageNo, @ModelAttribute PokemonAttribute pokemonAttribute, Model model){
+        if(Integer.valueOf(pageNo) != 1){
+        List<String> typesList = service.getTypesList();
+        List<PokemonAttribute> pokemon = service.getPokemonDisplayByPage(pageNo);
+        model.addAttribute("pokemon", pokemon);
+        model.addAttribute("typelist", typesList);
+        model.addAttribute("searchpokemon",  pokemonAttribute);
+
+        String previous = String.valueOf((Integer.valueOf(pageNo)) - 1);
+        String next = String.valueOf((Integer.valueOf(pageNo)) + 1);
+        model.addAttribute("previouspage", previous);
+        model.addAttribute("nextpage", next);
+        return "pokemonpage2onward";
+
+        }else{
+        return "redirect:/Pokemon";
+    }
+    }
 }

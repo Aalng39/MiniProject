@@ -208,14 +208,11 @@ public class PokemonService {
 
         pokeDetails.setBaseStats(stats);
         
-        // Max 240
-        // logger.info(stats.getHp());
-        // logger.info(stats.getAttack());
-        // logger.info(stats.getDefense());
-        // logger.info(stats.getSpecialAttack());
-        // logger.info(stats.getSpecialDefense());
-        // logger.info(stats.getSpeed());
-        
+        //EVOLUTION ATTEND LATER----------------------------------------------
+        // JsonObject evolutionChain = jsonObjDesc.getJsonObject("evolution_chain");
+        // String evolutionUrl = evolutionChain.getString("url");
+        // logger.info(evolutionUrl);
+
         sPokeAttList.add(pokeDetails);
 
         PokemonList pokeDetailsList = new PokemonList();
@@ -318,5 +315,66 @@ public class PokemonService {
         pokeDetails.setTypes(sPokeTypes);
 
         return pokeDetails;
+    }
+    // ---------------------METHOD 6----------------------
+    //
+    //
+    public List<PokemonAttribute> getPokemonDisplayByPage(String pageNo){
+        
+        String offSetNum = String.valueOf((12 * Integer.valueOf(pageNo)) - 12);
+        logger.info(offSetNum);
+        ResponseEntity<String> response = restTemplate.getForEntity((pokemonNameURL + "/?offset=" + offSetNum + "&limit=12"), String.class);
+        String payload = response.getBody();
+        StringReader stringR = new StringReader(payload);
+        JsonReader jsonR = Json.createReader(stringR);
+        JsonObject jsonObj = jsonR.readObject();
+        JsonArray jsonArr = jsonObj.getJsonArray("results");
+
+        List<PokemonAttribute> pokeAttList = new LinkedList<>();
+
+        for (int i = 0; i < jsonArr.size(); i++){
+            JsonObject jsonOb = jsonArr.get(i).asJsonObject();
+
+            PokemonAttribute pokeAt = new PokemonAttribute();
+            String pokeName = jsonOb.getString("name");
+
+            // Change Name to First Letter Caps
+            String capPokeName = pokeName.substring(0, 1).toUpperCase() + pokeName.substring(1);
+            pokeAt.setName(capPokeName);
+            
+            //Use Pokemon Name to get new URL 
+            ResponseEntity<String> respN = restTemplate.getForEntity((pokemonNameURL + "/" + pokeName), String.class);
+            String payloadN = respN.getBody();
+            StringReader stringRN = new StringReader(payloadN);
+            JsonReader jsonRN = Json.createReader(stringRN);
+            JsonObject jsonObjN = jsonRN.readObject();
+
+            //Getting Pokemon Img
+            JsonObject sprites = jsonObjN.getJsonObject("sprites");
+            JsonObject other = sprites.getJsonObject("other");
+            JsonObject offArt = other.getJsonObject("official-artwork");
+            
+            pokeAt.setImageUrl(offArt.getString("front_default"));
+            // logger.info(pokeAt.getImageUrl());
+
+            //Getting Pokemon Types
+            JsonArray jsonArrayN = jsonObjN.getJsonArray("types");
+            List<String> pokeTypes = new LinkedList<>();
+            for (int y = 0; y < jsonArrayN.size(); y++){
+                JsonObject types = jsonArrayN.get(y).asJsonObject();
+                
+                JsonObject type = types.getJsonObject("type");
+                String pokeType = type.getString("name");
+                String capPokeType = pokeType.substring(0, 1).toUpperCase() + pokeType.substring(1);
+                pokeTypes.add(capPokeType);                
+            }
+            pokeAt.setTypes(pokeTypes);
+            pokeAttList.add(pokeAt);
+
+        }
+        PokemonList pokemonList = new PokemonList();
+        pokemonList.setDisplayList(pokeAttList);
+
+        return pokemonList.getDisplayList() ;  
     }
 }
