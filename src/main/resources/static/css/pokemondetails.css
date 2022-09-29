@@ -1,14 +1,35 @@
+body{
+    background-color: rgb(255, 237, 204);
+}
+
 a.navbar-brand{
     cursor: default;
 }
 
+/* #cardmain{
+    background-color: #0037ae; 
+} */
+#search{
+    background-color: white;
+    color: #0037ae;
+    border: solid 1px #0037ae; 
+}
+#search:hover{
+    background-color: #0037ae;
+    color: white;
+    border: solid 1px #0037ae; 
+}
 div.card {
     display: inline-block;
     padding: 5px;
     width: 1000px;
-    letter-spacing: 1px;
+    letter-spacing: 1px;  
 }
-h3.card-title{
+
+h3{
+    font-weight: bolder;
+}
+span.card-title{
     font-weight: bolder;
 }
 #secondbox{
@@ -77,6 +98,7 @@ p.card-text{
     text-align: left;
     padding: 3px;
     border: none;
+
 }
 #desctext{
     border: none;

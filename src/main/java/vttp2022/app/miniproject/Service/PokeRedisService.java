@@ -1,6 +1,7 @@
 package vttp2022.app.miniproject.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 // import org.slf4j.Logger;
 // import org.slf4j.LoggerFactory;
@@ -8,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-import vttp2022.app.miniproject.Model.CurrentUser;
 import vttp2022.app.miniproject.Model.PokemonAttribute;
+import vttp2022.app.miniproject.Model.UserCart;
 
 @Service
 public class PokeRedisService implements PokeRedisRepo {
@@ -35,43 +36,31 @@ public class PokeRedisService implements PokeRedisRepo {
         }        
     }
 
-    // public List<ToDoItem> createCompletedList(String userId, ToDoItem selectedItem){  
-
-    //     ToDoItem completedItem = new ToDoItem();
-    //     completedItem.setDescription(selectedItem.getDescription());
-    //     completedItem.setDateCreated(currentDateTime);
-    //     logger.info(completedItem.getDateCreated());
-
-    //     ToDoList userItem = (ToDoList) redisTemplate.opsForValue().get(userId);
-
-    //     if(userItem.getCompletedList() != null){
-    //         userItem.getCompletedList().add(completedItem);
-            
-    //         return userItem.getCompletedList();
-
-    //     }else{
-    //         ToDoList toDoList = new ToDoList();
-    //         toDoList.getToDoList().add(completedItem);
-    //         return toDoList.getToDoList();
-    //         }       
-    // }
-
     @Override
-    public void save(PokemonAttribute savedPokemon) {
-        String username = CurrentUser.getCurrentUser();
-        if(redisTemplate.hasKey(CurrentUser.getCurrentUser())){
+    public void save(final UserCart myPokemonTeam) {
+        String username = UserCart.getUsername();
+        if(redisTemplate.hasKey(UserCart.getUsername())){
 
-           redisTemplate.opsForValue().setIfPresent(username, savedPokemon);
+           redisTemplate.opsForValue().setIfPresent(username, myPokemonTeam);
             
         }else{
-            redisTemplate.opsForValue().setIfAbsent(username, savedPokemon);
+            redisTemplate.opsForValue().setIfAbsent(username, myPokemonTeam);
         }
     }
 
     @Override
-    public PokemonAttribute loginWithId(final String userId) {
-        PokemonAttribute pokemonAtt = (PokemonAttribute) redisTemplate.opsForValue().get(userId);
-        return pokemonAtt;
+    public UserCart loginWithId(final String username) {
+        UserCart userCart = (UserCart) redisTemplate.opsForValue().get(username);
+        return userCart;
+    }
+
+    @Override
+    public Optional<UserCart> findPokemonCartByUserId(String username){
+        UserCart userCart = (UserCart) redisTemplate.opsForValue().get(username);
+        if (null!=userCart){
+            return Optional.of(userCart);
+        }
+        return Optional.empty();
     }
 
 }

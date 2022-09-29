@@ -45,8 +45,8 @@
             </li>
           </ul>
           <form class="d-flex" role="search" th:action="@{/search}" th:object="${searchpokemon}" autocomplete="off">
-            <input class="form-control me-2" type="search" placeholder="Search Pokémon" aria-label="Search" th:field="*{name}">
-            <button class="btn btn-outline-secondary" type="submit">Search</button>
+            <input class="form-control me-2" type="search" placeholder="Search Pokémon" aria-label="Search" th:field="*{name}" required>
+            <button id="search" class="btn btn-primary" type="submit">Search</button>
           </form>
         </div>
       </div>
@@ -55,7 +55,7 @@
 
 
   <div style="text-align:center;">
-    <div class="card">
+    <div id="cardmain" class="card">
       <div class="card-body" th:each="poke, iterStat : ${pokemonD}" th:value="${(pokemonD)[iterStat.index]}">
         
 

@@ -1,0 +1,16 @@
+a{
+    background-color: white !important;
+    color: #0037ae !important;
+    border: solid 1px #0037ae !important; 
+}
+a:hover{
+    background-color: #0037ae !important;
+    color: white !important;
+    border: solid 1px #0037ae !important; 
+}
+#textbox{
+    letter-spacing: 1px !important;
+}
+#red{
+    color: #ff1c1c !important;
+}

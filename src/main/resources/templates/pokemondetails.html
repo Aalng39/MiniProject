@@ -45,8 +45,8 @@
             </li>
           </ul>
           <form class="d-flex" role="search" th:action="@{/Pokemon/search}" th:object="${searchpokemon}" autocomplete="off">
-            <input class="form-control me-2" type="search" placeholder="Search Pokémon" aria-label="Search" th:field="*{name}">
-            <button class="btn btn-outline-secondary" type="submit">Search</button>
+            <input class="form-control me-2" type="search" placeholder="Search Pokémon" aria-label="Search" th:field="*{name}" required>
+            <button id="search" class="btn btn-primary" type="submit">Search</button>
           </form>
         </div>
       </div>
@@ -55,7 +55,7 @@
 
 
   <div style="text-align:center;">
-    <div class="card">
+    <div id="cardmain" class="card">
       <div class="card-body" th:each="poke, iterStat : ${pokemonD}" th:value="${(pokemonD)[iterStat.index]}">
         <form
             action="#"
@@ -144,7 +144,6 @@
        
 
           <div id="thirdbox" class="card mb-3" style="max-width: 900px;">
-            <!-- HP -->
 
             <div class="container">
               <div class="row">
@@ -158,6 +157,7 @@
                 </div>
               
               <div class="col">
+              <!-- HP -->
               <div class="progress">
                 <div id="hp" class="progress-bar" role="progressbar" aria-label="Basic example" th:style="'width:' + (${poke.baseStats.hp}/2) + '%;'" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
               </div>

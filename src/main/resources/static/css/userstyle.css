@@ -1,6 +1,6 @@
 h1 {
   padding-top: 50px;
-  padding-left: 20px;
+  padding-left: 100px;
   font-weight: bold;
   font-family: Arial, Helvetica, sans-serif;
   letter-spacing: 1px;
@@ -11,7 +11,7 @@ h1 {
   }
 
   body {
-    background-color:  hsl(0, 0%, 90%) !important;
+    background-color: rgb(255, 237, 204) !important;
   }
   
   .btn-login {
@@ -26,26 +26,25 @@ h1 {
       background-color:white !important;
       color: #0037ae !important;
   }
-  button.home{
-    border-radius: 4px;
+  #home{
     float:right;
     margin-top: 20px;
     margin-right: 20px;
-    padding: 4px, 20px;
-    border: solid 1px black;
+    border: solid 1px #0037ae;
+    background-color: white;
   }
   a.home{
-    letter-spacing: 1px;
-    color: black;
+    color: #0037ae;
   }
+
   a.home:link{
     text-decoration: none;
   }
 
-  button.home:hover{
+  #home:hover{
     background-color: #0037ae;
+    border: solid 1px #0037ae;
   }
   a.home:hover{
-    letter-spacing: 1px;
     color: white;
   }

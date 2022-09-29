@@ -1,10 +1,26 @@
+body{
+    background-color: rgb(255, 237, 204);
+}
+
 a.navbar-brand{
     cursor: default;
 }
+#search{
+    background-color: white;
+    color: #0037ae;
+    border: solid 1px #0037ae; 
+}
+#search:hover{
+    background-color: #0037ae;
+    color: white;
+    border: solid 1px #0037ae; 
+}
+
 div.card {
     display: inline-block;
     padding-top: 18px;
     letter-spacing: 1px;
+    margin-bottom: 5px;
 }
 div.typebox{
     text-align: center;  

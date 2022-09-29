@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import vttp2022.app.miniproject.Model.CurrentUser;
 import vttp2022.app.miniproject.Model.PokemonAttribute;
+import vttp2022.app.miniproject.Model.UserCart;
 import vttp2022.app.miniproject.Service.PokeRedisService;
 import vttp2022.app.miniproject.Service.PokemonService;
 
@@ -43,13 +43,14 @@ public class PokemonController {
     @PostMapping("/Pokemon")
     public String loginPokemonDisplayPage(@ModelAttribute PokemonAttribute pokemonAttribute, Model model){
 
-        CurrentUser.setCurrentUser(pokemonAttribute.getUserId());
-        if(redisTemplate.hasKey(pokemonAttribute.getUserId())){
-            logger.info("Welcome " + pokemonAttribute.getUserId());
+        UserCart.setUsername(pokemonAttribute.getUserId());
+        if(redisTemplate.hasKey(UserCart.getUsername())){
+            logger.info("Welcome " + UserCart.getUsername());
         }else{
+            UserCart userCart = new UserCart();
             List<String> newList = new LinkedList<>();
-            pokemonAttribute.setSavedName(newList);
-            redisService.save(pokemonAttribute);
+            userCart.setMyPokemonTeam(newList);
+            redisService.save(userCart);
         }
 
         List<String> typesList = service.getTypesList();
@@ -63,7 +64,7 @@ public class PokemonController {
     @GetMapping("/Pokemon")
     public String getPokemonDisplayPage(@ModelAttribute PokemonAttribute pokemonAttribute, Model model){
 
-        pokemonAttribute.setUserId(CurrentUser.getCurrentUser());
+        pokemonAttribute.setUserId(UserCart.getUsername());
 
         List<String> typesList = service.getTypesList();
         List<PokemonAttribute> pokemon = service.getPokemonDisplay();
@@ -75,12 +76,12 @@ public class PokemonController {
     @GetMapping("/Pokemon/MyTeam")
         public String getMyPokemonTeam(@ModelAttribute PokemonAttribute pokemonAttribute, Model model){
 
-            pokemonAttribute.setUserId(CurrentUser.getCurrentUser());
+            pokemonAttribute.setUserId(UserCart.getUsername());
 
-            PokemonAttribute userPokeAtt = redisService.loginWithId(pokemonAttribute.getUserId());
+            UserCart userCart = redisService.loginWithId(UserCart.getUsername());
 
             List<PokemonAttribute> pokemon = new LinkedList<>();
-            for(String allName : userPokeAtt.getSavedName()){
+            for(String allName : userCart.getMyPokemonTeam()){
             PokemonAttribute poke = service.getMyPokemon(allName);
             pokemon.add(poke);
             }
@@ -94,19 +95,19 @@ public class PokemonController {
     @PostMapping("/Pokemon/MyTeam")
     public String addPokemonToMyTeam(@ModelAttribute PokemonAttribute pokemonAttribute, Model model){
 
-        pokemonAttribute.setUserId(CurrentUser.getCurrentUser());
+        pokemonAttribute.setUserId(UserCart.getUsername());
         String pokeName = pokemonAttribute.getName();
         logger.info(pokemonAttribute.getName());
 
-        PokemonAttribute userPokeAtt = redisService.loginWithId(pokemonAttribute.getUserId());
-        userPokeAtt.getSavedName().add(pokeName);
+        UserCart userCart = redisService.loginWithId(pokemonAttribute.getUserId());
+        userCart.getMyPokemonTeam().add(pokeName);
         
-        for(String name : userPokeAtt.getSavedName()){
+        for(String name : userCart.getMyPokemonTeam()){
             logger.info(name);}
-        redisService.save(userPokeAtt);
+        redisService.save(userCart);
 
         List<PokemonAttribute> pokemon = new LinkedList<>();
-        for(String allName : userPokeAtt.getSavedName()){
+        for(String allName : userCart.getMyPokemonTeam()){
         PokemonAttribute poke = service.getMyPokemon(allName);
         pokemon.add(poke);
         }
@@ -120,7 +121,7 @@ public class PokemonController {
     @GetMapping("/Pokemon/{name}")
     public String getPokemonDetails(@PathVariable String name, @ModelAttribute PokemonAttribute pokemonAttribute, Model model){
 
-        pokemonAttribute.setUserId(CurrentUser.getCurrentUser());
+        pokemonAttribute.setUserId(UserCart.getUsername());
 
         List<String> typesList = service.getTypesList();
 
@@ -134,7 +135,7 @@ public class PokemonController {
     @GetMapping("/Pokemon/search")
     public String searchPokemonDetails(@RequestParam String name, @ModelAttribute PokemonAttribute pokemonAttribute, Model model){
 
-        pokemonAttribute.setUserId(CurrentUser.getCurrentUser());
+        pokemonAttribute.setUserId(UserCart.getUsername());
 
         List<String> typesList = service.getTypesList();       
         List<PokemonAttribute> pokemonD = service.getPokemonDetails(name);
@@ -148,7 +149,7 @@ public class PokemonController {
     @GetMapping("/Pokemon/Types/{type}")
     public String getPokemonDisplayPageFromType(@PathVariable String type, @ModelAttribute PokemonAttribute pokemonAttribute, Model model){
     
-        pokemonAttribute.setUserId(CurrentUser.getCurrentUser());
+        pokemonAttribute.setUserId(UserCart.getUsername());
 
         List<String> typesList = service.getTypesList();
 
@@ -162,16 +163,17 @@ public class PokemonController {
     @PostMapping("/Pokemon/MyTeam/removed")
     public String removePokemonFromMyTeam(@ModelAttribute PokemonAttribute pokemonAttribute, Model model){
 
-        pokemonAttribute.setUserId(CurrentUser.getCurrentUser());
+        pokemonAttribute.setUserId(UserCart.getUsername());
+        
         int index = pokemonAttribute.getIndex();
         logger.info(String.valueOf(pokemonAttribute.getIndex()));
 
-        PokemonAttribute userPokeAtt = redisService.loginWithId(pokemonAttribute.getUserId());
-        userPokeAtt.getSavedName().remove(index);
-        redisService.save(userPokeAtt);
+        UserCart userCart = redisService.loginWithId(pokemonAttribute.getUserId());
+        userCart.getMyPokemonTeam().remove(index);
+        redisService.save(userCart);
 
         List<PokemonAttribute> pokemon = new LinkedList<>();
-        for(String allName : userPokeAtt.getSavedName()){
+        for(String allName : userCart.getMyPokemonTeam()){
         PokemonAttribute poke = service.getMyPokemon(allName);
         pokemon.add(poke);
         }

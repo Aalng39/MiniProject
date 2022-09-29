@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import vttp2022.app.miniproject.Model.CurrentUser;
 import vttp2022.app.miniproject.Model.PokemonAttribute;
 import vttp2022.app.miniproject.Service.PokeRedisService;
 import vttp2022.app.miniproject.Service.PokemonService;
@@ -43,8 +42,6 @@ public class NoUserController {
     @GetMapping("/{name}")
     public String getPokemonDetails(@PathVariable String name, @ModelAttribute PokemonAttribute pokemonAttribute, Model model){
 
-        pokemonAttribute.setUserId(CurrentUser.getCurrentUser());
-
         List<String> typesList = service.getTypesList();
 
         List<PokemonAttribute> pokemonD = service.getPokemonDetails(name);
@@ -56,8 +53,6 @@ public class NoUserController {
 
     @GetMapping("/search")
     public String searchPokemonDetails(@RequestParam String name, @ModelAttribute PokemonAttribute pokemonAttribute, Model model){
-
-        pokemonAttribute.setUserId(CurrentUser.getCurrentUser());
 
         List<String> typesList = service.getTypesList();       
         List<PokemonAttribute> pokemonD = service.getPokemonDetails(name);
@@ -71,8 +66,6 @@ public class NoUserController {
     @GetMapping("/Types/{type}")
     public String getPokemonDisplayPageFromType(@PathVariable String type, @ModelAttribute PokemonAttribute pokemonAttribute, Model model){
     
-        pokemonAttribute.setUserId(CurrentUser.getCurrentUser());
-
         List<String> typesList = service.getTypesList();
 
         List<PokemonAttribute> pokemonByType = service.getPokemonDisplayFromType(type);

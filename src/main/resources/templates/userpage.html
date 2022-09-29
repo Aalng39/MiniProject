@@ -15,7 +15,7 @@
 </head>
 
 <body th:style="'background:url('+ @{/img/pokeball.png} +'); background-repeat: no-repeat, repeat; background-size: cover;'">
-  <button class="home"><a class="home" href="#" th:href="@{/}">Home</a></button>
+  <button id="home" class="btn btn-primary"><a class="home" href="#" th:href="@{/}">Home</a></button>
   <h1 style="text-align:center;">My Pokédex</h1>
     <div class="container">
       <div class="row">
@@ -30,7 +30,7 @@
                 method="post">
 
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="floatingInput" th:field="*{userId}">
+                  <input type="text" class="form-control" id="floatingInput" th:field="*{userId}" required>
                   <label for="floatingInput">Username</label>
                 </div>
                 <div class="d-grid">

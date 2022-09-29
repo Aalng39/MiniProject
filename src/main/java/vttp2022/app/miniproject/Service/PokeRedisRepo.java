@@ -1,11 +1,14 @@
 package vttp2022.app.miniproject.Service;
 
-import vttp2022.app.miniproject.Model.PokemonAttribute;
+import java.util.Optional;
+import vttp2022.app.miniproject.Model.UserCart;
 
 public interface PokeRedisRepo {
       
-    public void save(final PokemonAttribute savedPokemon);
+    public void save(final UserCart myPokemonTeam);
         
-    public PokemonAttribute loginWithId(final String userId);
+    public UserCart loginWithId(final String username);
+
+    public Optional<UserCart> findPokemonCartByUserId(String username);
       
 }
