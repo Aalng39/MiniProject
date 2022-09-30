@@ -62,8 +62,8 @@ public class PokemonService {
     //
     //
     public List<PokemonAttribute> getPokemonDisplay(){
-        //Get Pokemon Name limit to 20 for now
-        ResponseEntity<String> response = restTemplate.getForEntity((pokemonNameURL + "/?offset=0&limit=8"), String.class);
+        //Get Pokemon Name limit to 12 for now
+        ResponseEntity<String> response = restTemplate.getForEntity((pokemonNameURL + "/?offset=0&limit=12"), String.class);
         String payload = response.getBody();
         StringReader stringR = new StringReader(payload);
         JsonReader jsonR = Json.createReader(stringR);
