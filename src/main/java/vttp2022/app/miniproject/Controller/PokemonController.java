@@ -124,8 +124,15 @@ public class PokemonController {
         pokemonAttribute.setUserId(UserCart.getUsername());
 
         List<String> typesList = service.getTypesList();
+        PokemonAttribute pokemonD = service.getPokemonDetails(name);
 
-        List<PokemonAttribute> pokemonD = service.getPokemonDetails(name);
+        List<PokemonAttribute> evo = new LinkedList<>();
+        for(String allName : pokemonD.getEvolutionList()){
+        PokemonAttribute poke = service.getMyPokemon(allName);
+        evo.add(poke);
+        }
+        
+        model.addAttribute("pokemonchain", evo);
         model.addAttribute("pokemonD" , pokemonD);
         model.addAttribute("typelist", typesList);
         model.addAttribute("searchpokemon",  pokemonAttribute);
@@ -138,7 +145,14 @@ public class PokemonController {
         pokemonAttribute.setUserId(UserCart.getUsername());
 
         List<String> typesList = service.getTypesList();       
-        List<PokemonAttribute> pokemonD = service.getPokemonDetails(name);
+        PokemonAttribute pokemonD = service.getPokemonDetails(name);
+        List<PokemonAttribute> evo = new LinkedList<>();
+        for(String allName : pokemonD.getEvolutionList()){
+        PokemonAttribute poke = service.getMyPokemon(allName);
+        evo.add(poke);
+        }
+        
+        model.addAttribute("pokemonchain", evo);
         model.addAttribute("pokemonD" , pokemonD);
         model.addAttribute("typelist", typesList);
         model.addAttribute("searchpokemon",  pokemonAttribute);

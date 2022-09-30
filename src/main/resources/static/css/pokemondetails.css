@@ -23,7 +23,8 @@ div.card {
     display: inline-block;
     padding: 5px;
     width: 1000px;
-    letter-spacing: 1px;  
+    letter-spacing: 1px;
+    margin-bottom: 20px;  
 }
 
 h3{
@@ -74,6 +75,22 @@ img.card-img-top {
     height: 260px;
     width: 260px;
     border-radius: 8px;
+}
+#evoimg{
+    display: block;
+    margin: auto;
+    background-color: hsl(0, 0%, 90%);
+    transition: background-color 300ms;
+    height: 200px;
+    width: 200px;
+    border-radius: 8px;
+    
+}
+#evocard{
+        display: inline-block;
+        padding-top: 18px;
+        letter-spacing: 1px;
+        margin-bottom: 5px;
 }
 span.typename{
     color: hsl(0, 0%, 100%);  
@@ -136,11 +153,15 @@ button.add{
 button.add:hover{
     background-color: hsl(0, 0%, 70%);
 }
+
 button{   
     border:none;
     border-radius: 8px;
     padding: 4px 20px;
     cursor: pointer;
+}
+#typebutton1{
+    margin-bottom: 5px;
 }
 #typebutton2{
     height: 30px;
@@ -278,6 +299,10 @@ button.Steel:hover{
 #thirdbox{
     text-align: center;
     padding: 10px;
+}
+#forthbox{
+    text-align: center;
+    padding: 20px;
 }
 /* Stats Bar */
 p.progress-label{

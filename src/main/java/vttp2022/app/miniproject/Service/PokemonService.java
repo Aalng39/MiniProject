@@ -121,9 +121,8 @@ public class PokemonService {
     // ---------------------METHOD 3----------------------
     //
     //
-    public List<PokemonAttribute> getPokemonDetails(String nameOrId){
+    public PokemonAttribute getPokemonDetails(String nameOrId){
         
-        List<PokemonAttribute> sPokeAttList = new LinkedList<>();
         // Input Name
         PokemonAttribute pokeDetails = new PokemonAttribute();
 
@@ -190,8 +189,16 @@ public class PokemonService {
         JsonReader jsonRDesc = Json.createReader(stringRDesc);
         JsonObject jsonObjDesc = jsonRDesc.readObject();
         JsonArray jsonArrDesc = jsonObjDesc.getJsonArray("flavor_text_entries");
-        
-        JsonObject lang = jsonArrDesc.get(0).asJsonObject();
+        int enIndex = 0;
+        for (int x = 0; x < jsonArrDesc.size(); x++){
+            JsonObject descObj = jsonArrDesc.get(x).asJsonObject();
+            JsonObject lang = descObj.getJsonObject("language");
+            String enLang = lang.getString("name");
+            if(enLang.equals("en")){
+                enIndex = x;
+            }       
+        }            
+        JsonObject lang = jsonArrDesc.get(enIndex).asJsonObject();
         String desc = lang.getString("flavor_text").replace("\f", " ");
         pokeDetails.setDescription(desc);
 
@@ -209,19 +216,55 @@ public class PokemonService {
         pokeDetails.setBaseStats(stats);
         
         //EVOLUTION ATTEND LATER----------------------------------------------
-        // JsonObject evolutionChain = jsonObjDesc.getJsonObject("evolution_chain");
-        // String evolutionUrl = evolutionChain.getString("url");
-        // logger.info(evolutionUrl);
+        JsonObject evolutionChain = jsonObjDesc.getJsonObject("evolution_chain");
+        String evolutionUrl = evolutionChain.getString("url");
+        logger.info(evolutionUrl);
 
-        sPokeAttList.add(pokeDetails);
+        ResponseEntity<String> respEvolution = restTemplate.getForEntity(evolutionUrl, String.class);
+        String payloadEvolution = respEvolution.getBody();
+        StringReader stringREvolution = new StringReader(payloadEvolution);
+        JsonReader jsonREvolution = Json.createReader(stringREvolution);
+        JsonObject jsonObjEvolution = jsonREvolution.readObject();
+        JsonObject chain = jsonObjEvolution.getJsonObject("chain");
+        JsonObject species = chain.getJsonObject("species");
+        String evolutionName = species.getString("name");
+        String capPokeName1 = evolutionName.substring(0, 1).toUpperCase() + evolutionName.substring(1);
 
-        PokemonList pokeDetailsList = new PokemonList();
-        pokeDetailsList.setDetailsList(sPokeAttList);
+        List<String> evolutionList = new LinkedList<>();
 
+        JsonArray evolution2 = (chain.getJsonArray("evolves_to").asJsonArray());
         
-        return pokeDetailsList.getDetailsList();
-    }
 
+        if(evolution2.isEmpty()){
+            evolutionList.add(capPokeName1);
+            for(String name123 : evolutionList){
+                logger.info(name123);}
+        }else{
+        evolutionList.add(capPokeName1);
+        JsonObject species2 = evolution2.get(0).asJsonObject().getJsonObject("species");
+        String evolutionName2 = species2.getString("name");
+        String capPokeName2 = evolutionName2.substring(0, 1).toUpperCase() + evolutionName2.substring(1);
+        JsonArray evolution3 = (evolution2.get(0).asJsonObject().getJsonArray("evolves_to").asJsonArray());
+
+            if(evolution3.isEmpty()){
+                evolutionList.add(capPokeName2);
+            }else{
+                evolutionList.add(capPokeName2);
+                JsonObject species3 = evolution3.get(0).asJsonObject().getJsonObject("species");
+                String evolutionName3 = species3.getString("name");
+                String capPokeName3 = evolutionName3.substring(0, 1).toUpperCase() + evolutionName3.substring(1);
+                
+                evolutionList.add(capPokeName3);         
+            }     
+        }
+        pokeDetails.setEvolutionList(evolutionList);
+        for(String name123 : evolutionList){
+            logger.info(name123);
+        }
+          
+        return pokeDetails;
+        
+    }
     // ---------------------METHOD 4----------------------
     //
     //
