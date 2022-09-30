@@ -82,9 +82,9 @@
     </div>
 
     <div>
-      <button id="previous" class="btn btn-primary"><a class="page-link" th:href="@{/Pokemon/Page/{previouspage}(previouspage = ${previouspage})}">Previous Page</a></button>
+      <button id="previous" class="btn btn-primary"><a class="page-link" th:href="@{/Page/{previouspage}(previouspage = ${previouspage})}">Previous Page</a></button>
       <div style="float:right;">
-        <button id="next" class="btn btn-primary"><a class="page-link" th:href="@{/Pokemon/Page/{nextpage}(nextpage = ${nextpage})}">Next page</a></button>
+        <button id="next" class="btn btn-primary"><a class="page-link" th:href="@{/Page/{nextpage}(nextpage = ${nextpage})}">Next page</a></button>
       </div>
   </div>
   </body>

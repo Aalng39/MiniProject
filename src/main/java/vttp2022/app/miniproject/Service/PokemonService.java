@@ -237,7 +237,7 @@ public class PokemonService {
         JsonObject jsonObjectT = jsonReaderT.readObject();
         JsonArray jsonArrayT = jsonObjectT.getJsonArray("pokemon");
         List<PokemonAttribute> pokeAttList = new LinkedList<>();
-        for (int i = 0; i < 20; i++){
+        for (int i = 0; i < 12; i++){
             JsonObject jsonObj = jsonArrayT.get(i).asJsonObject();
             JsonObject pokemon = jsonObj.getJsonObject("pokemon");    
             String pokeN = pokemon.getString("name");
@@ -376,5 +376,63 @@ public class PokemonService {
         pokemonList.setDisplayList(pokeAttList);
 
         return pokemonList.getDisplayList() ;  
+    }
+    // ---------------------METHOD 7----------------------
+    //
+    //
+    public List<PokemonAttribute> getPokemonPageFromType(String typex, String pageNo){
+
+        String pokeType = typex.toLowerCase();
+
+        int limit = Integer.valueOf(pageNo)*12;
+        int startNo = ((12 * Integer.valueOf(pageNo)) - 12);
+        
+        ResponseEntity<String> responseT = restTemplate.getForEntity(pokemonTypeURL + "/" + pokeType, String.class);
+        String payloadT = responseT.getBody();
+        StringReader stringReaderT = new StringReader(payloadT);
+        JsonReader jsonReaderT = Json.createReader(stringReaderT);
+        JsonObject jsonObjectT = jsonReaderT.readObject();
+        JsonArray jsonArrayT = jsonObjectT.getJsonArray("pokemon");
+        List<PokemonAttribute> pokeAttList = new LinkedList<>();
+        for (int i = startNo; i < limit; i++){
+            JsonObject jsonObj = jsonArrayT.get(i).asJsonObject();
+            JsonObject pokemon = jsonObj.getJsonObject("pokemon");    
+            String pokeN = pokemon.getString("name");
+           
+            PokemonAttribute pokeAt = new PokemonAttribute();
+            // Change Name to First Letter Caps
+            String capPokeName = pokeN.substring(0, 1).toUpperCase() + pokeN.substring(1);
+            pokeAt.setName(capPokeName);
+
+            //Use Pokemon Name to get new URL 
+            ResponseEntity<String> respD = restTemplate.getForEntity((pokemonNameURL + "/" + pokeN), String.class);
+            String payloadD = respD.getBody();
+            StringReader stringRD = new StringReader(payloadD);
+            JsonReader jsonRD = Json.createReader(stringRD);
+            JsonObject jsonObjD = jsonRD.readObject();
+
+            // //Getting Pokemon Img
+            JsonObject sprites = jsonObjD.getJsonObject("sprites");
+            JsonObject other = sprites.getJsonObject("other");
+            JsonObject offArt = other.getJsonObject("official-artwork");
+            pokeAt.setImageUrl(offArt.getString("front_default"));
+
+            //Getting Pokemon Types
+            JsonArray jsonArrayN = jsonObjD.getJsonArray("types");
+            List<String> sPokeTypes = new LinkedList<>();
+            for (int y = 0; y < jsonArrayN.size(); y++){
+                JsonObject types = jsonArrayN.get(y).asJsonObject();
+                
+                JsonObject type1 = types.getJsonObject("type");
+                String capPokeType = (type1.getString("name")).substring(0, 1).toUpperCase() 
+                                    + (type1.getString("name")).substring(1);
+                sPokeTypes.add(capPokeType);                
+            };
+            pokeAt.setTypes(sPokeTypes);
+            pokeAttList.add(pokeAt);      
+        }
+    PokemonList pokeDisplayList = new PokemonList();
+    pokeDisplayList.setDisplayList(pokeAttList);
+    return pokeDisplayList.getDisplayList();
     }
 }

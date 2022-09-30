@@ -72,7 +72,8 @@ public class NoUserController {
         model.addAttribute("pokemon", pokemonByType);
         model.addAttribute("typelist", typesList);
         model.addAttribute("searchpokemon",  pokemonAttribute);
-        return "nouser";
+        model.addAttribute("typex", type);
+        return "nousertype";
     }
 
     @GetMapping("/Page/{pageNo}")
@@ -92,6 +93,28 @@ public class NoUserController {
     
             }else{
             return "redirect:/";
+        }
+    }
+
+    @GetMapping("/Types/{typex}/Page/{pageNo}")
+    public String getPokemonTypeByPage(@PathVariable String typex, @PathVariable String pageNo, @ModelAttribute PokemonAttribute pokemonAttribute, Model model){
+
+        if(Integer.valueOf(pageNo) != 1){
+        List<String> typesList = service.getTypesList();
+        List<PokemonAttribute> pokemonByType = service.getPokemonPageFromType(typex, pageNo);
+        model.addAttribute("pokemon", pokemonByType);
+        model.addAttribute("typelist", typesList);
+        model.addAttribute("searchpokemon",  pokemonAttribute);
+
+        String previous = String.valueOf((Integer.valueOf(pageNo)) - 1);
+        String next = String.valueOf((Integer.valueOf(pageNo)) + 1);
+        model.addAttribute("previouspage", previous);
+        model.addAttribute("nextpage", next);
+        model.addAttribute("typex", typex);
+        return "nousertypepagex";
+
+        }else{
+        return "redirect:/Types/{typex}";
         }
     }
 

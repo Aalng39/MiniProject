@@ -89,7 +89,7 @@ public class PokemonController {
             model.addAttribute("pokemon", pokemon);
             model.addAttribute("typelist", typesList);
             model.addAttribute("searchpokemon",  pokemonAttribute);
-            return "mypokemon";
+            return "pokemonmyteam";
         }
 
     @PostMapping("/Pokemon/MyTeam")
@@ -115,7 +115,7 @@ public class PokemonController {
         model.addAttribute("pokemon", pokemon);
         model.addAttribute("typelist", typesList);
         model.addAttribute("searchpokemon", pokemonAttribute);
-        return "mypokemon";
+        return "pokemonmyteam";
     }
 
     @GetMapping("/Pokemon/{name}")
@@ -157,7 +157,8 @@ public class PokemonController {
         model.addAttribute("pokemon", pokemonByType);
         model.addAttribute("typelist", typesList);
         model.addAttribute("searchpokemon",  pokemonAttribute);
-        return "pokemon";
+        model.addAttribute("typex", type);
+        return "pokemontype";
     }
 
     @PostMapping("/Pokemon/MyTeam/removed")
@@ -202,6 +203,28 @@ public class PokemonController {
 
         }else{
         return "redirect:/Pokemon";
+    }
+    }
+
+    @GetMapping("/Pokemon/Types/{typex}/Page/{pageNo}")
+    public String getPokemonTypeByPage(@PathVariable String typex, @PathVariable String pageNo, @ModelAttribute PokemonAttribute pokemonAttribute, Model model){
+
+        if(Integer.valueOf(pageNo) != 1){
+        List<String> typesList = service.getTypesList();
+        List<PokemonAttribute> pokemonByType = service.getPokemonPageFromType(typex, pageNo);
+        model.addAttribute("pokemon", pokemonByType);
+        model.addAttribute("typelist", typesList);
+        model.addAttribute("searchpokemon",  pokemonAttribute);
+
+        String previous = String.valueOf((Integer.valueOf(pageNo)) - 1);
+        String next = String.valueOf((Integer.valueOf(pageNo)) + 1);
+        model.addAttribute("previouspage", previous);
+        model.addAttribute("nextpage", next);
+        model.addAttribute("typex", typex);
+        return "pokemontypepagex";
+
+        }else{
+        return "redirect:/Pokemon/Types/{typex}";
     }
     }
 }
