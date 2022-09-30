@@ -23,8 +23,11 @@ public class PokeRedisService implements PokeRedisRepo {
         
         if(redisTemplate.hasKey(userId)){
 
-            PokemonAttribute pokemonAtt =  (PokemonAttribute) redisTemplate.opsForValue().get(userId);
-            pokemonAtt.getSavedName().add(name);
+            UserCart userCart = (UserCart) redisTemplate.opsForValue().get(userId);
+            userCart.getMyPokemonTeam().add(name);
+            PokemonAttribute pokemonAtt = new PokemonAttribute();
+            pokemonAtt.setSavedName(userCart.getMyPokemonTeam());
+            
 
             return pokemonAtt.getSavedName();   
 

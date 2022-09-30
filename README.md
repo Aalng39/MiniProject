@@ -1,1 +1,0 @@
-redis-cli -u redis://default:DZk5godEAx2okNK5ZMQnRiD8vAAKLJBd@redis-18780.c292.ap-southeast-1-1.ec2.cloud.redislabs.com:18780
