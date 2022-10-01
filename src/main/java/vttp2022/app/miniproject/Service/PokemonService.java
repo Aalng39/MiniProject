@@ -236,9 +236,8 @@ public class PokemonService {
         
 
         if(evolution2.isEmpty()){
-            evolutionList.add(capPokeName1);
-            for(String name123 : evolutionList){
-                logger.info(name123);}
+            evolutionList.add(pokeDetails.getName());
+
         }else{
         evolutionList.add(capPokeName1);
         JsonObject species2 = evolution2.get(0).asJsonObject().getJsonObject("species");
@@ -258,9 +257,9 @@ public class PokemonService {
             }     
         }
         pokeDetails.setEvolutionList(evolutionList);
-        for(String name123 : evolutionList){
-            logger.info(name123);
-        }
+        // for(String name123 : evolutionList){
+        //     logger.info(name123);
+        // }
           
         return pokeDetails;
         
@@ -329,7 +328,7 @@ public class PokemonService {
         
         PokemonAttribute pokeDetails = new PokemonAttribute();
 
-        String pokeSearchName = name.toLowerCase(); 
+        String pokeSearchName = name.toLowerCase();
         String capPokeName = pokeSearchName.substring(0, 1).toUpperCase() + pokeSearchName.substring(1);
         pokeDetails.setName(capPokeName);
         ResponseEntity<String> respD = restTemplate.getForEntity((pokemonNameURL + "/" + pokeSearchName), String.class);
@@ -365,7 +364,7 @@ public class PokemonService {
     public List<PokemonAttribute> getPokemonDisplayByPage(String pageNo){
         
         String offSetNum = String.valueOf((12 * Integer.valueOf(pageNo)) - 12);
-        logger.info(offSetNum);
+
         ResponseEntity<String> response = restTemplate.getForEntity((pokemonNameURL + "/?offset=" + offSetNum + "&limit=12"), String.class);
         String payload = response.getBody();
         StringReader stringR = new StringReader(payload);

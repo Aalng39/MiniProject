@@ -22,7 +22,7 @@ public class PokeRedisService implements PokeRedisRepo {
     public List<String> createListOfPokeName(String userId, String name){
         
         if(redisTemplate.hasKey(userId)){
-
+            
             UserCart userCart = (UserCart) redisTemplate.opsForValue().get(userId);
             userCart.getMyPokemonTeam().add(name);
             PokemonAttribute pokemonAtt = new PokemonAttribute();
